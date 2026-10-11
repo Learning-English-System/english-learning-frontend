@@ -150,32 +150,32 @@ export const TestAssessment: React.FC<TestAssessmentProps> = ({
           </div>
 
           {/* Question Card */}
-          <Card className="p-8 shadow-apple-lg">
-            <h3 className="text-xl font-bold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] mb-6 leading-relaxed">
+          <Card className="p-8">
+            <h3 className="font-serif text-2xl font-normal tracking-tight text-[#121316] dark:text-[#f4f3f0] mb-6 leading-relaxed">
               {activeQuestion.prompt}
             </h3>
 
             {/* Options */}
-            <div className="space-y-3 mb-8">
+            <div className="space-y-2.5 mb-8">
               {activeQuestion.options.map((option, idx) => {
                 const isSelected = answers[activeQuestion.id] === option;
                 return (
                   <button
                     key={option}
                     onClick={() => handleSelectOption(activeQuestion.id, option)}
-                    className={`w-full text-left p-4 rounded-xl border transition-all duration-200 flex items-center justify-between select-none ${
+                    className={`w-full text-left p-3.5 rounded-lg border transition-all duration-150 flex items-center justify-between select-none ${
                       isSelected
-                        ? 'border-[#0071e3] bg-[#0071e3]/5 dark:bg-[#0071e3]/10 text-[#0071e3] dark:text-[#2997ff] font-medium shadow-apple-sm'
-                        : 'border-black/[0.08] dark:border-white/[0.1] bg-black/[0.02] dark:bg-white/[0.03] text-[#1d1d1f] dark:text-[#f5f5f7] hover:border-black/[0.2] dark:hover:border-white/[0.2]'
+                        ? 'border-[#121316] dark:border-[#f4f3f0] bg-black/[0.05] dark:bg-white/[0.07] text-[#121316] dark:text-[#f4f3f0] font-medium shadow-xs'
+                        : 'border-black/[0.08] dark:border-white/[0.1] bg-black/[0.02] dark:bg-white/[0.03] text-stone-700 dark:text-stone-300 hover:border-black/20 dark:hover:border-white/20'
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold border border-current">
+                      <kbd className="craft-kbd">
                         {String.fromCharCode(65 + idx)}
-                      </span>
-                      <span className="text-[15px]">{option}</span>
+                      </kbd>
+                      <span className="text-sm font-sans">{option}</span>
                     </div>
-                    {isSelected && <Check className="w-4 h-4 text-[#0071e3]" />}
+                    {isSelected && <Check className="w-4 h-4 text-[#121316] dark:text-[#f4f3f0]" />}
                   </button>
                 );
               })}

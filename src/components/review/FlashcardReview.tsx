@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Trophy, RefreshCcw } from 'lucide-react';
+import { Trophy, RefreshCcw, Layers } from 'lucide-react';
 import { Flashcard3D } from './Flashcard3D';
 import { Button } from '../ui/Button';
 import { Card } from '../ui/Card';
@@ -56,10 +56,10 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
         // Finished all cards! Trigger luxury chime and confetti
         sounds.playSuccess();
         confetti({
-          particleCount: 120,
-          spread: 80,
+          particleCount: 80,
+          spread: 60,
           origin: { y: 0.6 },
-          colors: ['#0071e3', '#34c759', '#ff9500', '#af52de'],
+          colors: ['#121316', '#b45309', '#15803d', '#1a365d'],
         });
         await onRefreshQueue();
         setCurrentIndex(0);
@@ -80,7 +80,7 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
         e.preventDefault();
         toggleFlip();
       } else if (isFlipped) {
-        if (e.key === '1') handleRate(0); // Blackout
+        if (e.key === '1') handleRate(0); // Again
         if (e.key === '2') handleRate(2); // Hard
         if (e.key === '3') handleRate(4); // Good
         if (e.key === '4') handleRate(5); // Easy
@@ -95,27 +95,27 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
     return (
       <div className="max-w-xl mx-auto py-16 px-4 text-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.3 }}
         >
-          <Card className="p-10 text-center shadow-apple-lg">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#34c759]/10 text-[#34c759] flex items-center justify-center">
-              <Trophy className="w-8 h-8" />
+          <Card className="p-10 text-center">
+            <div className="w-12 h-12 mx-auto mb-4 rounded-lg bg-[#15803d]/10 text-[#15803d] flex items-center justify-center">
+              <Trophy className="w-6 h-6" />
             </div>
-            <h2 className="text-2xl font-bold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">
-              Queue Cleared!
+            <h2 className="text-xl font-bold tracking-tight text-[#121316] dark:text-[#f4f3f0] mb-2 font-serif">
+              Queue Complete
             </h2>
-            <p className="text-[15px] text-[#86868b] dark:text-[#a1a1a6] max-w-md mx-auto mb-6 leading-relaxed">
-              You have completed all scheduled SuperMemo-2 reviews for today. Great dedication!
+            <p className="text-sm text-stone-500 max-w-md mx-auto mb-6 leading-relaxed">
+              All scheduled spaced repetition items for today have been reviewed. The interval algorithm will reschedule due cards automatically.
             </p>
             <Button
               variant="secondary"
-              icon={<RefreshCcw className="w-4 h-4" />}
+              icon={<RefreshCcw className="w-3.5 h-3.5" />}
               onClick={onRefreshQueue}
-              className="rounded-full px-6"
+              className="rounded-lg px-5 text-xs font-mono"
             >
-              Check Again
+              Check For Due Items
             </Button>
           </Card>
         </motion.div>
@@ -126,24 +126,28 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
   const progressPercent = Math.round(((currentIndex + 1) / dueReviews.length) * 100);
 
   return (
-    <div className="max-w-2xl mx-auto py-8 px-4">
+    <div className="max-w-2xl mx-auto py-6 px-4">
       
-      {/* Progress header */}
-      <div className="flex items-center justify-between mb-4 text-xs font-medium text-[#86868b]">
+      {/* Session Header */}
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-black/[0.06] dark:border-white/[0.08]">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-[#0071e3]" />
-          <span>Card {currentIndex + 1} of {dueReviews.length}</span>
+          <Layers className="w-4 h-4 text-stone-500" />
+          <span className="text-xs font-mono text-stone-500 uppercase tracking-wider">
+            Card {currentIndex + 1} of {dueReviews.length}
+          </span>
         </div>
-        <span>{progressPercent}% completed</span>
+        <span className="text-xs font-mono font-medium text-stone-600 dark:text-stone-400">
+          {progressPercent}% Complete
+        </span>
       </div>
 
-      {/* Progress bar */}
-      <div className="w-full h-1.5 rounded-full bg-black/[0.06] dark:bg-white/[0.08] mb-6 overflow-hidden">
+      {/* Progress track */}
+      <div className="w-full h-1 rounded-full bg-black/[0.06] dark:bg-white/[0.08] mb-6 overflow-hidden">
         <motion.div
-          className="h-full bg-gradient-to-r from-[#0071e3] to-[#5856d6] rounded-full"
+          className="h-full bg-[#121316] dark:bg-[#f4f3f0] rounded-full"
           initial={{ width: 0 }}
           animate={{ width: `${progressPercent}%` }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
         />
       </div>
 
@@ -156,78 +160,92 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
       />
 
       {/* Rating actions */}
-      <div className="mt-8">
+      <div className="mt-6">
         <AnimatePresence mode="wait">
           {!isFlipped ? (
             <motion.div
               key="flip-btn"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -8 }}
               className="text-center"
             >
               <Button
                 variant="primary"
                 size="lg"
                 onClick={toggleFlip}
-                className="w-full max-w-sm rounded-full py-3 text-[15px] font-semibold"
+                className="w-full max-w-sm rounded-lg py-2.5 text-sm"
               >
-                Reveal Answer (Space)
+                <span>Reveal Answer</span>
+                <kbd className="craft-kbd ml-2 text-inherit opacity-80">Space</kbd>
               </Button>
             </motion.div>
           ) : (
             <motion.div
               key="rating-pills"
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
+              exit={{ opacity: 0, y: -8 }}
               className="space-y-3"
             >
+              {/* Tactile Mechanical Keypads */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 
                 {/* Again / 0 */}
                 <button
                   disabled={submitting}
                   onClick={() => handleRate(0)}
-                  className="p-3 rounded-2xl bg-[#ff3b30]/10 hover:bg-[#ff3b30]/20 text-[#ff3b30] border border-[#ff3b30]/20 text-center transition-all active:scale-95 select-none"
+                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] text-left transition-all active:translate-y-[1px] select-none group"
                 >
-                  <div className="text-xs font-semibold uppercase tracking-wider mb-0.5">Again</div>
-                  <div className="text-[11px] opacity-80">&lt; 1 min [1]</div>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-semibold text-[#b91c1c] dark:text-[#f87171]">Again</span>
+                    <kbd className="craft-kbd">1</kbd>
+                  </div>
+                  <div className="text-[11px] text-stone-500 font-mono">&lt; 1 min</div>
                 </button>
 
                 {/* Hard / 2 */}
                 <button
                   disabled={submitting}
                   onClick={() => handleRate(2)}
-                  className="p-3 rounded-2xl bg-[#ff9500]/10 hover:bg-[#ff9500]/20 text-[#ff9500] border border-[#ff9500]/20 text-center transition-all active:scale-95 select-none"
+                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] text-left transition-all active:translate-y-[1px] select-none group"
                 >
-                  <div className="text-xs font-semibold uppercase tracking-wider mb-0.5">Hard</div>
-                  <div className="text-[11px] opacity-80">1 day [2]</div>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-semibold text-[#b45309] dark:text-[#f59e0b]">Hard</span>
+                    <kbd className="craft-kbd">2</kbd>
+                  </div>
+                  <div className="text-[11px] text-stone-500 font-mono">1 day</div>
                 </button>
 
                 {/* Good / 4 */}
                 <button
                   disabled={submitting}
                   onClick={() => handleRate(4)}
-                  className="p-3 rounded-2xl bg-[#0071e3]/10 hover:bg-[#0071e3]/20 text-[#0071e3] border border-[#0071e3]/20 text-center transition-all active:scale-95 select-none"
+                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] text-left transition-all active:translate-y-[1px] select-none group"
                 >
-                  <div className="text-xs font-semibold uppercase tracking-wider mb-0.5">Good</div>
-                  <div className="text-[11px] opacity-80">3 days [3]</div>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-semibold text-[#1a365d] dark:text-[#38bdf8]">Good</span>
+                    <kbd className="craft-kbd">3</kbd>
+                  </div>
+                  <div className="text-[11px] text-stone-500 font-mono">3 days</div>
                 </button>
 
                 {/* Easy / 5 */}
                 <button
                   disabled={submitting}
                   onClick={() => handleRate(5)}
-                  className="p-3 rounded-2xl bg-[#34c759]/10 hover:bg-[#34c759]/20 text-[#34c759] border border-[#34c759]/20 text-center transition-all active:scale-95 select-none"
+                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] text-left transition-all active:translate-y-[1px] select-none group"
                 >
-                  <div className="text-xs font-semibold uppercase tracking-wider mb-0.5">Easy</div>
-                  <div className="text-[11px] opacity-80">7 days [4]</div>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-semibold text-[#15803d] dark:text-[#4ade80]">Easy</span>
+                    <kbd className="craft-kbd">4</kbd>
+                  </div>
+                  <div className="text-[11px] text-stone-500 font-mono">7 days</div>
                 </button>
 
               </div>
-              <p className="text-center text-[11px] text-[#86868b]">
-                Keyboard shortcuts: 1 (Again), 2 (Hard), 3 (Good), 4 (Easy)
+              <p className="text-center text-[11px] font-mono text-stone-400">
+                SuperMemo-2 algorithm automatically recalibrates ease factor
               </p>
             </motion.div>
           )}

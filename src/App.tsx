@@ -131,59 +131,56 @@ const AppContent: React.FC = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-[#fbfbfd] dark:bg-[#000000] flex flex-col items-center justify-center relative overflow-hidden">
+      <div className="min-h-screen bg-[var(--color-canvas)] text-[var(--color-ink)] flex flex-col items-center justify-center relative overflow-hidden">
         <CinematicAtmosphere activeTab="review" isDark={isDark} />
-        <div className="w-12 h-12 border-3 border-[#0071e3]/20 border-t-[#0071e3] rounded-full animate-spin z-10" />
-        <span className="mt-5 text-sm font-medium tracking-wide text-[#86868b] z-10">
-          Initializing English Master...
+        <div className="w-8 h-8 border-2 border-stone-300 dark:border-stone-700 border-t-[#121316] dark:border-t-[#f4f3f0] rounded-full animate-spin z-10" />
+        <span className="mt-4 text-xs font-mono tracking-wider text-stone-400 z-10">
+          INITIALIZING LEXICON...
         </span>
       </div>
     );
   }
 
-  // If not authenticated, render Apple Keynote Showcase Landing Page
+  // If not authenticated, render Bespoke Lexicon Atelier Landing Page
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#fbfbfd] dark:bg-[#000000] text-[#1d1d1f] dark:text-[#f5f5f7] flex flex-col justify-center items-center p-4 relative overflow-hidden transition-colors duration-300">
-        {/* Dynamic GPU-accelerated atmospheric lighting */}
+      <div className="min-h-screen bg-[var(--color-canvas)] text-[var(--color-ink)] flex flex-col justify-center items-center p-4 relative overflow-hidden transition-colors duration-200">
         <CinematicAtmosphere activeTab="ai" isDark={isDark} />
 
         {/* Landing Hero Headline */}
         <div className="text-center max-w-xl mx-auto mb-8 z-10 pt-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.12] text-xs font-semibold mb-4 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-[#0071e3] animate-pulse" />
-            <span>Apple HIG Experience • Cognitive Science</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-black/[0.04] dark:bg-white/[0.06] border border-black/[0.08] dark:border-white/[0.1] text-xs font-mono text-stone-600 dark:text-stone-300 mb-4 select-none">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#b45309]" />
+            <span>OXFORD COGNITIVE SYSTEM</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[#1d1d1f] dark:text-white mb-3">
-            Master English. <br />
-            <span className="text-[#0071e3] dark:text-[#2997ff]">Effortlessly.</span>
+          <h1 className="font-serif text-4xl sm:text-5xl font-normal tracking-tight text-[#121316] dark:text-[#f4f3f0] mb-3 leading-tight">
+            Master the English Lexicon.
           </h1>
-          <p className="text-[15px] text-[#86868b] dark:text-[#a1a1a6] leading-relaxed">
-            Spaced repetition, instant AI pronunciation scoring, and standardized CEFR assessments.
+          <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed max-w-md mx-auto font-sans">
+            SuperMemo-2 spaced recall, native acoustic phonetics, and standardized CEFR assessments designed with typographic craft.
           </p>
         </div>
 
-        {/* Apple ID Style Auth Card */}
+        {/* Auth Card */}
         <div className="w-full max-w-md z-10">
           <AuthModal />
         </div>
 
-        {/* Apple HIG footer note */}
-        <p className="mt-8 text-xs text-[#86868b] text-center z-10 font-medium">
-          Designed with precision following Apple Human Interface Guidelines.
+        <p className="mt-8 text-[11px] font-mono text-stone-400 text-center z-10">
+          LEXICON ATELIER • CRAFTED WITH EDITORIAL RESTRAINT
         </p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#fbfbfd] dark:bg-[#000000] text-[#1d1d1f] dark:text-[#f5f5f7] flex flex-col relative overflow-x-hidden transition-colors duration-300">
-      {/* Background Cinematic Atmosphere */}
+    <div className="min-h-screen bg-[var(--color-canvas)] text-[var(--color-ink)] flex flex-col relative overflow-x-hidden transition-colors duration-200">
+      {/* Background Atmosphere */}
       <CinematicAtmosphere activeTab={activeTab} isDark={isDark} />
 
-      {/* Background sync loading bar */}
+      {/* Subtle sync loading line */}
       {dataLoading && (
-        <div className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#0071e3] via-[#af52de] to-[#0071e3] animate-pulse z-[60]" />
+        <div className="fixed top-0 left-0 right-0 h-[2px] bg-[#b45309] z-[60]" />
       )}
 
       {/* Top Glass Navigation Bar */}

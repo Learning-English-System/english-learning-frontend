@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Volume2, RotateCw } from 'lucide-react';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
@@ -19,21 +18,23 @@ export const Flashcard3D: React.FC<Flashcard3DProps> = ({
   onPlayAudio,
 }) => {
   return (
-    <div className="w-full max-w-xl mx-auto perspective-1000 py-4">
-      <motion.div
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-        className="w-full min-h-[380px] sm:min-h-[420px] relative transform-style-3d cursor-pointer select-none"
-        onClick={onFlip}
+    <div
+      onClick={onFlip}
+      className="perspective-1000 w-full h-[400px] sm:h-[430px] cursor-pointer select-none group"
+    >
+      <div
+        className={`relative w-full h-full duration-500 transform-style-3d transition-transform ease-out ${
+          isFlipped ? 'rotate-y-180' : ''
+        }`}
       >
         {/* FRONT SIDE */}
-        <div className="absolute inset-0 backface-hidden apple-glass rounded-3xl p-8 sm:p-10 shadow-apple-lg border border-black/[0.08] dark:border-white/[0.12] flex flex-col justify-between">
+        <div className="absolute inset-0 backface-hidden craft-surface rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Badge variant="purple" size="sm">
+              <Badge variant="stone" size="sm">
                 {item.partOfSpeech || 'Word'}
               </Badge>
-              <Badge variant="blue" size="sm">
+              <Badge variant="amber" size="sm" className="font-mono">
                 {item.cefrLevel || 'B2'}
               </Badge>
             </div>
@@ -45,34 +46,38 @@ export const Flashcard3D: React.FC<Flashcard3DProps> = ({
                 onPlayAudio();
               }}
               title="Listen pronunciation"
-              className="rounded-full w-10 h-10 bg-black/[0.04] dark:bg-white/[0.08] hover:bg-[#0071e3] hover:text-white transition-colors"
+              className="rounded-md w-9 h-9 bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08]"
             >
-              <Volume2 className="w-5 h-5" />
+              <Volume2 className="w-4 h-4 text-stone-700 dark:text-stone-300" />
             </Button>
           </div>
 
           <div className="text-center my-auto py-6">
-            <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] mb-3">
+            <h2 className="font-serif text-5xl sm:text-6xl font-normal tracking-tight text-[#121316] dark:text-[#f4f3f0] mb-3">
               {item.word}
             </h2>
-            {item.phonetic && (
-              <p className="text-lg text-[#86868b] dark:text-[#a1a1a6] font-mono tracking-normal">
+            {item.phonetic ? (
+              <p className="font-mono text-sm text-stone-500 dark:text-stone-400 tracking-wider">
                 {item.phonetic}
+              </p>
+            ) : (
+              <p className="font-mono text-xs text-stone-400 dark:text-stone-500 tracking-widest uppercase">
+                TAP TO FLIP
               </p>
             )}
           </div>
 
-          <div className="flex items-center justify-center gap-2 text-xs text-[#86868b] font-medium pt-4 border-t border-black/[0.05] dark:border-white/[0.06]">
-            <RotateCw className="w-3.5 h-3.5 animate-spin-slow" />
-            <span>Click or press Spacebar to reveal answer</span>
+          <div className="flex items-center justify-center gap-2 text-xs text-stone-500 dark:text-stone-400 font-medium pt-4 border-t border-black/[0.06] dark:border-white/[0.08]">
+            <RotateCw className="w-3.5 h-3.5" />
+            <span>Click card or press <kbd className="craft-kbd">Space</kbd> to reveal meaning</span>
           </div>
         </div>
 
         {/* BACK SIDE (ROTATED 180deg) */}
-        <div className="absolute inset-0 backface-hidden rotate-y-180 apple-glass rounded-3xl p-8 sm:p-10 shadow-apple-lg border border-[#0071e3]/20 dark:border-[#2997ff]/30 flex flex-col justify-between">
+        <div className="absolute inset-0 backface-hidden rotate-y-180 craft-surface rounded-2xl p-8 sm:p-10 flex flex-col justify-between border-stone-300 dark:border-stone-700">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[#0071e3] uppercase tracking-wider">
-              Meaning & Context
+            <span className="text-[11px] font-mono font-medium text-stone-500 uppercase tracking-widest">
+              Lexical Definition
             </span>
             <Button
               variant="ghost"
@@ -81,7 +86,7 @@ export const Flashcard3D: React.FC<Flashcard3DProps> = ({
                 e.stopPropagation();
                 onPlayAudio();
               }}
-              className="rounded-full w-9 h-9"
+              className="rounded-md w-8 h-8"
             >
               <Volume2 className="w-4 h-4" />
             </Button>
@@ -89,42 +94,42 @@ export const Flashcard3D: React.FC<Flashcard3DProps> = ({
 
           <div className="my-auto py-4 space-y-4">
             <div>
-              <p className="text-xs text-[#86868b] uppercase tracking-wider font-semibold mb-1">
+              <p className="text-[11px] text-stone-400 uppercase tracking-wider font-mono font-medium mb-1">
                 Vietnamese Translation
               </p>
-              <h3 className="text-2xl sm:text-3xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">
+              <h3 className="text-2xl sm:text-3xl font-bold text-[#121316] dark:text-[#f4f3f0]">
                 {item.translation}
               </h3>
             </div>
 
             {item.definition && (
-              <div className="pt-2 border-t border-black/[0.05] dark:border-white/[0.06]">
-                <p className="text-xs text-[#86868b] uppercase tracking-wider font-semibold mb-1">
+              <div className="pt-2 border-t border-black/[0.06] dark:border-white/[0.08]">
+                <p className="text-[11px] text-stone-400 uppercase tracking-wider font-mono font-medium mb-1">
                   Definition
                 </p>
-                <p className="text-sm text-[#1d1d1f] dark:text-[#f5f5f7] leading-relaxed">
-                  {item.definition}
+                <p className="font-serif italic text-base text-[#121316] dark:text-[#f4f3f0] leading-relaxed">
+                  "{item.definition}"
                 </p>
               </div>
             )}
 
             {(item.exampleSentence || (item.examples && item.examples.length > 0)) && (
-              <div className="pt-2 border-t border-black/[0.05] dark:border-white/[0.06] bg-black/[0.02] dark:bg-white/[0.04] p-3 rounded-xl">
-                <p className="text-xs text-[#86868b] uppercase tracking-wider font-semibold mb-1">
+              <div className="pt-2 border-t border-black/[0.06] dark:border-white/[0.08] bg-black/[0.02] dark:bg-white/[0.03] p-3 rounded-lg">
+                <p className="text-[11px] text-stone-400 uppercase tracking-wider font-mono font-medium mb-1">
                   Example
                 </p>
-                <p className="text-sm italic text-[#1d1d1f] dark:text-[#f5f5f7] leading-relaxed">
-                  "{item.exampleSentence || item.examples[0].sentence}"
+                <p className="text-sm text-stone-700 dark:text-stone-300 leading-relaxed font-sans">
+                  {item.exampleSentence || item.examples[0].sentence}
                 </p>
               </div>
             )}
           </div>
 
-          <div className="flex items-center justify-center gap-2 text-xs text-[#86868b] font-medium pt-4 border-t border-black/[0.05] dark:border-white/[0.06]">
-            <span>Rate your recall quality below</span>
+          <div className="flex items-center justify-center gap-1.5 text-xs text-stone-500 font-medium pt-3 border-t border-black/[0.06] dark:border-white/[0.08]">
+            <span>Rate recall with keys <kbd className="craft-kbd">1</kbd> <kbd className="craft-kbd">2</kbd> <kbd className="craft-kbd">3</kbd> <kbd className="craft-kbd">4</kbd></span>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GraduationCap, Mail, Lock, User, ExternalLink, ShieldCheck, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, Lock, User, ExternalLink, ShieldCheck, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
@@ -66,18 +66,18 @@ export const AuthModal: React.FC = () => {
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className="w-full max-w-md mx-auto"
     >
-      <Card className="p-8 sm:p-10 shadow-apple-lg apple-specular border border-black/[0.08] dark:border-white/[0.12]">
+      <Card className="p-8 sm:p-10">
           
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-[#0071e3] to-[#5856d6] flex items-center justify-center text-white shadow-apple-md">
-              <GraduationCap className="w-8 h-8" />
+            <div className="w-12 h-12 mx-auto mb-3.5 rounded-xl bg-[#121316] text-[#faf9f5] dark:bg-[#f4f3f0] dark:text-[#121316] flex items-center justify-center font-serif text-2xl font-bold shadow-xs border border-black/10 dark:border-white/10 select-none">
+              Æ
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7]">
-              English Master
+            <h1 className="font-serif text-2xl font-normal tracking-tight text-[#121316] dark:text-[#f4f3f0]">
+              Lexicon Studio
             </h1>
-            <p className="text-[13px] text-[#86868b] dark:text-[#a1a1a6] mt-1.5 leading-relaxed">
-              AI-driven Spaced Repetition Language Platform
+            <p className="text-xs font-mono text-stone-500 mt-1 uppercase tracking-wider">
+              Oxford Cognitive Memory System
             </p>
           </div>
 

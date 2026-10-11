@@ -173,11 +173,11 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div>
-                      <h4 className="text-xl font-bold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7]">
+                      <h4 className="font-serif text-2xl font-normal tracking-tight text-[#121316] dark:text-[#f4f3f0]">
                         {item.word}
                       </h4>
                       {item.phonetic && (
-                        <span className="text-xs font-mono text-[#86868b]">
+                        <span className="text-xs font-mono text-stone-400">
                           {item.phonetic}
                         </span>
                       )}
@@ -186,39 +186,39 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
                       variant="ghost"
                       size="icon"
                       onClick={() => playAudio(item.word)}
-                      className="rounded-full w-8 h-8 text-[#86868b] hover:text-[#0071e3]"
+                      className="w-7 h-7 text-stone-500 hover:text-stone-900 dark:hover:text-stone-100"
                     >
-                      <Volume2 className="w-4 h-4" />
+                      <Volume2 className="w-3.5 h-3.5" />
                     </Button>
                   </div>
 
-                  <p className="text-[15px] font-semibold text-[#0071e3] dark:text-[#2997ff] mb-2">
+                  <p className="text-sm font-semibold text-[#121316] dark:text-[#f4f3f0] mb-1.5">
                     {item.translation}
                   </p>
 
                   {item.definition && (
-                    <p className="text-xs text-[#86868b] line-clamp-2 mb-3 leading-relaxed">
-                      {item.definition}
+                    <p className="text-xs font-serif italic text-stone-600 dark:text-stone-400 line-clamp-2 mb-2.5 leading-relaxed">
+                      "{item.definition}"
                     </p>
                   )}
 
                   {item.exampleSentence && (
-                    <p className="text-xs italic text-[#1d1d1f]/80 dark:text-[#f5f5f7]/80 bg-black/[0.03] dark:bg-white/[0.05] p-2.5 rounded-xl line-clamp-2">
-                      "{item.exampleSentence}"
+                    <p className="text-xs text-stone-600 dark:text-stone-400 bg-black/[0.02] dark:bg-white/[0.03] p-2 rounded-md line-clamp-2 font-sans border border-black/[0.04] dark:border-white/[0.06]">
+                      {item.exampleSentence}
                     </p>
                   )}
                 </div>
 
-                <div className="flex items-center justify-between pt-4 mt-4 border-t border-black/[0.04] dark:border-white/[0.06] text-xs">
+                <div className="flex items-center justify-between pt-3 mt-3 border-t border-black/[0.06] dark:border-white/[0.08] text-xs">
                   <div className="flex items-center gap-1.5">
-                    <Badge variant="purple" size="sm">
+                    <Badge variant="stone" size="sm">
                       {item.partOfSpeech || 'Word'}
                     </Badge>
-                    <Badge variant="blue" size="sm">
+                    <Badge variant="amber" size="sm" className="font-mono">
                       {item.cefrLevel || 'B1'}
                     </Badge>
                   </div>
-                  <span className="text-[11px] text-[#86868b] font-medium">
+                  <span className="text-[11px] font-mono text-stone-400">
                     Rep: {item.repetitions ?? item.reviewState?.repetitionCount ?? 0}x
                   </span>
                 </div>

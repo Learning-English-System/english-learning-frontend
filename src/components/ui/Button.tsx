@@ -3,7 +3,7 @@ import { cn } from '../../lib/utils';
 import { Loader2 } from 'lucide-react';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'outline' | 'pill';
+  variant?: 'primary' | 'secondary' | 'accent' | 'ghost' | 'danger' | 'outline' | 'pill';
   size?: 'sm' | 'md' | 'lg' | 'icon';
   loading?: boolean;
   icon?: React.ReactNode;
@@ -19,22 +19,26 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   ...props
 }) => {
-  const baseStyles = "inline-flex items-center justify-center font-medium rounded-xl select-none transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none disabled:active:scale-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0071e3]/50";
+  const baseStyles = "inline-flex items-center justify-center font-medium rounded-lg select-none transition-all duration-150 active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-400";
 
   const variants = {
-    primary: "bg-[#0071e3] hover:bg-[#0077ed] text-white shadow-apple-sm hover:shadow-apple-md",
-    secondary: "bg-black/[0.05] dark:bg-white/[0.1] hover:bg-black/[0.08] dark:hover:bg-white/[0.15] text-[#1d1d1f] dark:text-[#f5f5f7] border border-black/[0.04] dark:border-white/[0.06]",
-    outline: "border border-black/[0.15] dark:border-white/[0.2] hover:bg-black/[0.03] dark:hover:bg-white/[0.05] text-[#1d1d1f] dark:text-[#f5f5f7]",
-    ghost: "hover:bg-black/[0.04] dark:hover:bg-white/[0.06] text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-[#f5f5f7]",
-    danger: "bg-[#ff3b30] hover:bg-[#ff453a] text-white shadow-apple-sm",
-    pill: "rounded-full bg-black/[0.05] dark:bg-white/[0.08] hover:bg-black/[0.09] dark:hover:bg-white/[0.14] text-[#1d1d1f] dark:text-[#f5f5f7] border border-black/[0.04] dark:border-white/[0.06]",
+    // Solid deep ink with top highlight line (Linear / Stripe style)
+    primary: "bg-[#121316] text-[#faf9f5] hover:bg-[#202227] dark:bg-[#f4f3f0] dark:text-[#121316] dark:hover:bg-white shadow-[0_1px_2px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)] active:translate-y-[0.5px]",
+    // Warm stone surface with subtle micro-border
+    secondary: "bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] text-inherit border border-black/[0.08] dark:border-white/[0.1] active:translate-y-[0.5px]",
+    // Warm Cognac / Amber accent
+    accent: "bg-[#b45309] hover:bg-[#92400e] text-white shadow-sm active:translate-y-[0.5px]",
+    outline: "border border-black/[0.14] dark:border-white/[0.18] hover:bg-black/[0.03] dark:hover:bg-white/[0.05] text-inherit",
+    ghost: "hover:bg-black/[0.04] dark:hover:bg-white/[0.06] text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100",
+    danger: "bg-[#b91c1c] hover:bg-[#991b1b] text-white shadow-sm active:translate-y-[0.5px]",
+    pill: "rounded-full bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] text-inherit border border-black/[0.08] dark:border-white/[0.1]",
   };
 
   const sizes = {
-    sm: "text-xs px-3 py-1.5 gap-1.5",
-    md: "text-sm px-4 py-2 gap-2",
+    sm: "text-xs px-2.5 py-1.5 gap-1.5 font-medium",
+    md: "text-sm px-3.5 py-2 gap-2",
     lg: "text-[15px] px-5 py-2.5 gap-2.5",
-    icon: "p-2 w-9 h-9",
+    icon: "p-2 w-8 h-8 rounded-md",
   };
 
   return (

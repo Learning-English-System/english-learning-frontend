@@ -85,69 +85,69 @@ export const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
         {/* User Card */}
         <Card className="p-6 md:col-span-1 flex flex-col justify-between">
           <div className="text-center py-4">
-            <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-[#0071e3] to-[#5856d6] flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-apple-md">
-              {profile?.displayName?.charAt(0) || 'U'}
+            <div className="w-16 h-16 mx-auto rounded-xl bg-[#121316] text-[#faf9f5] dark:bg-[#f4f3f0] dark:text-[#121316] flex items-center justify-center text-xl font-serif font-bold mb-3 shadow-xs border border-black/10 dark:border-white/10 select-none">
+              {profile?.displayName?.charAt(0) || 'L'}
             </div>
-            <h3 className="text-xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">
+            <h3 className="text-lg font-bold text-[#121316] dark:text-[#f4f3f0]">
               {profile?.displayName || 'Learner'}
             </h3>
-            <p className="text-xs text-[#86868b] mt-0.5">
+            <p className="text-xs font-mono text-stone-400 mt-0.5">
               {profile?.email}
             </p>
-            <div className="flex justify-center gap-2 mt-4">
-              <Badge variant="blue">{profile?.targetCefrLevel || 'B2'} Candidate</Badge>
-              <Badge variant="orange">{streak}d Streak</Badge>
+            <div className="flex justify-center gap-1.5 mt-3">
+              <Badge variant="oxford" size="sm" className="font-mono">{profile?.targetCefrLevel || 'B2'} Candidate</Badge>
+              <Badge variant="amber" size="sm" className="font-mono">{streak}d Streak</Badge>
             </div>
           </div>
 
-          <div className="pt-4 border-t border-black/[0.05] dark:border-white/[0.08] text-xs text-[#86868b] flex justify-between">
-            <span>Native: {profile?.nativeLanguage || 'vi'}</span>
-            <span>Target: {profile?.targetLanguage || 'en'}</span>
+          <div className="pt-3 border-t border-black/[0.06] dark:border-white/[0.08] text-xs font-mono text-stone-500 flex justify-between">
+            <span>Native: {profile?.nativeLanguage?.toUpperCase() || 'VI'}</span>
+            <span>Target: {profile?.targetLanguage?.toUpperCase() || 'EN'}</span>
           </div>
         </Card>
 
-        {/* Apple Fitness Activity Rings Card */}
+        {/* Cognitive Metric Rings Card */}
         <Card className="p-6 md:col-span-2 flex flex-col justify-between">
           <div>
-            <h3 className="text-base font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-1">
-              Daily Activity Rings
+            <h3 className="text-sm font-mono uppercase tracking-wider text-stone-500 mb-1">
+              Cognitive Retention Velocity
             </h3>
-            <p className="text-xs text-[#86868b] mb-6">
-              Three core metrics fueling your neuro-linguistic retention
+            <p className="text-xs text-stone-400 mb-6">
+              Three algorithmic markers tracking your spaced memory durability
             </p>
 
-            <div className="grid grid-cols-3 gap-4 text-center">
+            <div className="grid grid-cols-3 gap-3 text-center">
               
               {/* Ring 1: Minutes */}
-              <div className="p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.04] flex flex-col items-center">
-                <ProgressRing progress={75} size={70} strokeWidth={6} color="#ff3b30">
-                  <Clock className="w-5 h-5 text-[#ff3b30]" />
+              <div className="p-3.5 rounded-lg bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.06] flex flex-col items-center">
+                <ProgressRing progress={75} size={64} strokeWidth={5} color="#b45309">
+                  <Clock className="w-4 h-4 text-[#b45309]" />
                 </ProgressRing>
-                <div className="mt-3">
-                  <div className="text-sm font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">15 / {dailyGoal} m</div>
-                  <div className="text-[11px] text-[#86868b]">Goal Time</div>
+                <div className="mt-2.5">
+                  <div className="text-xs font-bold text-[#121316] dark:text-[#f4f3f0] font-mono">15 / {dailyGoal}m</div>
+                  <div className="text-[10px] text-stone-400 uppercase font-mono mt-0.5">Focus Time</div>
                 </div>
               </div>
 
               {/* Ring 2: Reviews */}
-              <div className="p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.04] flex flex-col items-center">
-                <ProgressRing progress={85} size={70} strokeWidth={6} color="#34c759">
-                  <Award className="w-5 h-5 text-[#34c759]" />
+              <div className="p-3.5 rounded-lg bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.06] flex flex-col items-center">
+                <ProgressRing progress={85} size={64} strokeWidth={5} color="#1a365d">
+                  <Award className="w-4 h-4 text-[#1a365d] dark:text-[#38bdf8]" />
                 </ProgressRing>
-                <div className="mt-3">
-                  <div className="text-sm font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{totalReviewed} cards</div>
-                  <div className="text-[11px] text-[#86868b]">SM-2 Reviews</div>
+                <div className="mt-2.5">
+                  <div className="text-xs font-bold text-[#121316] dark:text-[#f4f3f0] font-mono">{totalReviewed} cards</div>
+                  <div className="text-[10px] text-stone-400 uppercase font-mono mt-0.5">SM-2 Reviews</div>
                 </div>
               </div>
 
               {/* Ring 3: Retention */}
-              <div className="p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.04] flex flex-col items-center">
-                <ProgressRing progress={masteredCount} size={70} strokeWidth={6} color="#0071e3">
-                  <Flame className="w-5 h-5 text-[#0071e3]" />
+              <div className="p-3.5 rounded-lg bg-black/[0.02] dark:bg-white/[0.03] border border-black/[0.04] dark:border-white/[0.06] flex flex-col items-center">
+                <ProgressRing progress={masteredCount} size={64} strokeWidth={5} color="#15803d">
+                  <Flame className="w-4 h-4 text-[#15803d] dark:text-[#4ade80]" />
                 </ProgressRing>
-                <div className="mt-3">
-                  <div className="text-sm font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">{masteredCount}%</div>
-                  <div className="text-[11px] text-[#86868b]">Retention</div>
+                <div className="mt-2.5">
+                  <div className="text-xs font-bold text-[#121316] dark:text-[#f4f3f0] font-mono">{masteredCount}%</div>
+                  <div className="text-[10px] text-stone-400 uppercase font-mono mt-0.5">Retention Rate</div>
                 </div>
               </div>
 

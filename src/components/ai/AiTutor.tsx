@@ -169,45 +169,45 @@ export const AiTutor: React.FC<AiTutorProps> = ({
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="flex items-center gap-2">
-                        <h4 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7]">
+                        <h4 className="font-serif text-3xl font-normal tracking-tight text-[#121316] dark:text-[#f4f3f0]">
                           {analysis.word || analysis.normalizedWord}
                         </h4>
                         <Button
                           variant="ghost"
                           size="icon"
                           onClick={() => playSpeech(analysis.word || analysis.normalizedWord)}
-                          className="rounded-full w-7 h-7"
+                          className="w-7 h-7 text-stone-500"
                         >
                           <Volume2 className="w-3.5 h-3.5" />
                         </Button>
                       </div>
-                      <p className="text-xs font-mono text-[#86868b] mt-0.5">
+                      <p className="text-xs font-mono text-stone-400 mt-0.5">
                         {analysis.phonetic}
                       </p>
                     </div>
 
                     <div className="flex items-center gap-1.5">
-                      <Badge variant="purple" size="sm">{analysis.partOfSpeech}</Badge>
-                      <Badge variant="blue" size="sm">{analysis.cefrLevel}</Badge>
+                      <Badge variant="stone" size="sm">{analysis.partOfSpeech}</Badge>
+                      <Badge variant="amber" size="sm" className="font-mono">{analysis.cefrLevel}</Badge>
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.05]">
-                    <div className="text-[11px] uppercase tracking-wider text-[#86868b] font-semibold mb-1">
+                  <div className="p-3.5 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] border border-black/[0.06] dark:border-white/[0.08]">
+                    <div className="text-[11px] uppercase font-mono tracking-wider text-stone-400 font-medium mb-1">
                       Vietnamese Meaning
                     </div>
-                    <div className="text-base font-semibold text-[#0071e3] dark:text-[#2997ff]">
+                    <div className="text-base font-semibold text-[#121316] dark:text-[#f4f3f0]">
                       {analysis.vietnameseTranslation || analysis.translation}
                     </div>
                   </div>
 
                   {analysis.definition && (
                     <div>
-                      <div className="text-[11px] uppercase tracking-wider text-[#86868b] font-semibold mb-1">
-                        Definition
+                      <div className="text-[11px] uppercase font-mono tracking-wider text-stone-400 font-medium mb-1">
+                        Lexical Definition
                       </div>
-                      <p className="text-sm text-[#1d1d1f] dark:text-[#f5f5f7] leading-relaxed">
-                        {analysis.definition}
+                      <p className="font-serif italic text-sm text-stone-700 dark:text-stone-300 leading-relaxed">
+                        "{analysis.definition}"
                       </p>
                     </div>
                   )}
@@ -283,45 +283,38 @@ export const AiTutor: React.FC<AiTutorProps> = ({
               />
             </div>
 
-            {/* Apple Siri Style Pulsing Microphone Recorder */}
+            {/* Acoustic Studio Recording Station */}
             <div className="text-center py-6">
               <div className="relative inline-flex items-center justify-center">
                 {isRecording && (
-                  <>
-                    <motion.div
-                      animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0.1, 0.6] }}
-                      transition={{ repeat: Infinity, duration: 1.5 }}
-                      className="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-[#af52de] to-[#0071e3] -z-10"
-                    />
-                    <motion.div
-                      animate={{ scale: [1, 1.2, 1], opacity: [0.8, 0.2, 0.8] }}
-                      transition={{ repeat: Infinity, duration: 1 }}
-                      className="absolute w-20 h-20 rounded-full bg-[#af52de]/40 -z-10"
-                    />
-                  </>
+                  <motion.div
+                    animate={{ scale: [1, 1.35, 1], opacity: [0.4, 0.1, 0.4] }}
+                    transition={{ repeat: Infinity, duration: 1.2 }}
+                    className="absolute w-20 h-20 rounded-full bg-[#b91c1c]/20 -z-10"
+                  />
                 )}
                 
                 <button
                   onClick={handleToggleRecord}
                   disabled={assessing}
-                  className={`w-16 h-16 rounded-full flex items-center justify-center text-white shadow-apple-md transition-all active:scale-95 select-none ${
+                  className={`w-14 h-14 rounded-full flex items-center justify-center transition-all active:scale-95 select-none shadow-sm ${
                     isRecording
-                      ? 'bg-[#ff3b30] shadow-[#ff3b30]/30'
+                      ? 'bg-[#b91c1c] text-white ring-4 ring-[#b91c1c]/20'
                       : assessing
-                      ? 'bg-[#86868b]'
-                      : 'bg-gradient-to-tr from-[#0071e3] to-[#af52de] hover:opacity-95'
+                      ? 'bg-stone-300 dark:bg-stone-700 text-stone-500'
+                      : 'bg-[#121316] text-[#faf9f5] dark:bg-[#f4f3f0] dark:text-[#121316] hover:opacity-90'
                   }`}
                 >
-                  {isRecording ? <MicOff className="w-7 h-7" /> : <Mic className="w-7 h-7" />}
+                  {isRecording ? <MicOff className="w-6 h-6" /> : <Mic className="w-6 h-6" />}
                 </button>
               </div>
 
-              <p className="text-xs text-[#86868b] mt-3 font-medium">
+              <p className="text-xs font-mono text-stone-400 mt-3">
                 {isRecording
-                  ? 'Listening... Speak clearly into microphone'
+                  ? 'RECORDING ACOUSTIC SPEECH...'
                   : assessing
-                  ? 'Analyzing acoustic phonemes...'
-                  : 'Tap microphone and read the sentence aloud'}
+                  ? 'ANALYZING PHONEMIC ACCURACY...'
+                  : 'TAP MICROPHONE TO READ ALOUD'}
               </p>
             </div>
 
