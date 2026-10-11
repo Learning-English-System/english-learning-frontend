@@ -185,7 +185,12 @@ class ApiService {
     });
     if (!res.ok) {
       const err = await res.json().catch(() => ({ message: 'Registration failed' }));
-      throw new Error(err.message || 'Registration failed');
+      let errorMsg = err.message || err.title || err.detail;
+      if (err.errors && typeof err.errors === 'object') {
+        const errorList = Object.values(err.errors).flat().join(' ');
+        if (errorList) errorMsg = errorList;
+      }
+      throw new Error(errorMsg || 'Registration failed');
     }
     return res.json();
   }
