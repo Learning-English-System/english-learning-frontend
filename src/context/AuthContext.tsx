@@ -7,6 +7,7 @@ interface AuthContextType {
   loading: boolean;
   login: (email: string, pass: string) => Promise<void>;
   register: (email: string, pass: string, name: string) => Promise<void>;
+  verifyEmail: (email: string, token: string) => Promise<void>;
   logout: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 }
@@ -45,8 +46,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const register = async (email: string, pass: string, name: string) => {
     await api.register(email, pass, name);
-    // Automatically log in after registration
-    await login(email, pass);
+  };
+
+  const verifyEmail = async (email: string, token: string) => {
+    await api.verifyEmail(email, token);
   };
 
   const logout = async () => {
@@ -56,7 +59,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, profile, loading, login, register, logout, refreshProfile }}>
+    <AuthContext.Provider value={{ isAuthenticated, profile, loading, login, register, verifyEmail, logout, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   );

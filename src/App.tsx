@@ -64,13 +64,15 @@ const MainApp: React.FC = () => {
   const [sessions, setSessions] = useState<UserSession[]>([]);
 
   // Auth form state
-  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
-  const [authEmail, setAuthEmail] = useState<string>('learner@englishlearning.com');
-  const [authPassword, setAuthPassword] = useState<string>('StrongPass12345!');
-  const [authName, setAuthName] = useState<string>('Active Learner');
+  const [authMode, setAuthMode] = useState<'login' | 'register' | 'verify'>('login');
+  const [authEmail, setAuthEmail] = useState<string>('taingo2112003@gmail.com');
+  const [authPassword, setAuthPassword] = useState<string>('');
+  const [authName, setAuthName] = useState<string>('Ngô Bá Tấn Tài');
+  const [authVerifyToken, setAuthVerifyToken] = useState<string>('');
+  const [authSuccessMsg, setAuthSuccessMsg] = useState<string>('');
   const [authError, setAuthError] = useState<string>('');
   const [authLoading, setAuthLoading] = useState<boolean>(false);
-  const { login, register } = useAuth();
+  const { login, register, verifyEmail } = useAuth();
 
   // Load Initial Data
   const loadInitialData = async () => {
@@ -101,12 +103,19 @@ const MainApp: React.FC = () => {
   const handleAuthSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthError('');
+    setAuthSuccessMsg('');
     setAuthLoading(true);
     try {
       if (authMode === 'login') {
         await login(authEmail, authPassword);
-      } else {
+      } else if (authMode === 'register') {
         await register(authEmail, authPassword, authName);
+        setAuthMode('verify');
+        setAuthSuccessMsg('Account registered! Please check Mailpit (http://localhost:8025) for your verification token.');
+      } else if (authMode === 'verify') {
+        await verifyEmail(authEmail, authVerifyToken.trim());
+        setAuthSuccessMsg('Email verified successfully! You can now log in.');
+        setAuthMode('login');
       }
     } catch (err: any) {
       setAuthError(err.message || 'Authentication failed');
@@ -257,16 +266,27 @@ const MainApp: React.FC = () => {
 
           <div style={{ display: 'flex', borderBottom: '1px solid #334155', marginBottom: '1.5rem' }}>
             <button
-              onClick={() => setAuthMode('login')}
-              style={{ flex: 1, padding: '0.75rem', background: 'none', border: 'none', borderBottom: authMode === 'login' ? '2px solid #6366f1' : 'none', color: authMode === 'login' ? '#f8fafc' : '#64748b', fontWeight: 600 }}>
+              onClick={() => { setAuthMode('login'); setAuthError(''); setAuthSuccessMsg(''); }}
+              style={{ flex: 1, padding: '0.75rem', background: 'none', border: 'none', borderBottom: authMode === 'login' ? '2px solid #6366f1' : 'none', color: authMode === 'login' ? '#f8fafc' : '#64748b', fontWeight: 600, fontSize: '0.9rem' }}>
               Sign In
             </button>
             <button
-              onClick={() => setAuthMode('register')}
-              style={{ flex: 1, padding: '0.75rem', background: 'none', border: 'none', borderBottom: authMode === 'register' ? '2px solid #6366f1' : 'none', color: authMode === 'register' ? '#f8fafc' : '#64748b', fontWeight: 600 }}>
+              onClick={() => { setAuthMode('register'); setAuthError(''); setAuthSuccessMsg(''); }}
+              style={{ flex: 1, padding: '0.75rem', background: 'none', border: 'none', borderBottom: authMode === 'register' ? '2px solid #6366f1' : 'none', color: authMode === 'register' ? '#f8fafc' : '#64748b', fontWeight: 600, fontSize: '0.9rem' }}>
               Create Account
             </button>
+            <button
+              onClick={() => { setAuthMode('verify'); setAuthError(''); setAuthSuccessMsg(''); }}
+              style={{ flex: 1, padding: '0.75rem', background: 'none', border: 'none', borderBottom: authMode === 'verify' ? '2px solid #6366f1' : 'none', color: authMode === 'verify' ? '#f8fafc' : '#64748b', fontWeight: 600, fontSize: '0.9rem' }}>
+              Verify Email
+            </button>
           </div>
+
+          {authSuccessMsg && (
+            <div style={{ background: '#064e3b', color: '#6ee7b7', padding: '0.75rem', borderRadius: '8px', fontSize: '0.875rem', marginBottom: '1.25rem', border: '1px solid #059669' }}>
+              {authSuccessMsg}
+            </div>
+          )}
 
           {authError && (
             <div style={{ background: '#7f1d1d', color: '#fecaca', padding: '0.75rem', borderRadius: '8px', fontSize: '0.875rem', marginBottom: '1.25rem' }}>
@@ -299,22 +319,43 @@ const MainApp: React.FC = () => {
               />
             </div>
 
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, color: '#cbd5e1', marginBottom: '0.5rem' }}>Password (min 12 chars)</label>
-              <input
-                type="password"
-                required
-                value={authPassword}
-                onChange={e => setAuthPassword(e.target.value)}
-                style={{ width: '100%', padding: '0.75rem', background: '#0f172a', border: '1px solid #334155', borderRadius: '8px', color: '#f8fafc' }}
-              />
-            </div>
+            {authMode !== 'verify' && (
+              <div style={{ marginBottom: '1.5rem' }}>
+                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, color: '#cbd5e1', marginBottom: '0.5rem' }}>Password (min 12 chars)</label>
+                <input
+                  type="password"
+                  required
+                  value={authPassword}
+                  onChange={e => setAuthPassword(e.target.value)}
+                  style={{ width: '100%', padding: '0.75rem', background: '#0f172a', border: '1px solid #334155', borderRadius: '8px', color: '#f8fafc' }}
+                />
+              </div>
+            )}
+
+            {authMode === 'verify' && (
+              <div style={{ marginBottom: '1.5rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                  <label style={{ fontSize: '0.875rem', fontWeight: 500, color: '#cbd5e1' }}>Verification Token</label>
+                  <a href="http://localhost:8025" target="_blank" rel="noreferrer" style={{ fontSize: '0.75rem', color: '#818cf8', textDecoration: 'underline' }}>
+                    Open Mailpit (Inbox)
+                  </a>
+                </div>
+                <textarea
+                  rows={4}
+                  required
+                  placeholder="Paste the verification token received in email here..."
+                  value={authVerifyToken}
+                  onChange={e => setAuthVerifyToken(e.target.value)}
+                  style={{ width: '100%', padding: '0.75rem', background: '#0f172a', border: '1px solid #334155', borderRadius: '8px', color: '#f8fafc', fontSize: '0.875rem', fontFamily: 'monospace' }}
+                />
+              </div>
+            )}
 
             <button
               type="submit"
               disabled={authLoading}
               style={{ width: '100%', padding: '0.875rem', background: '#4f46e5', border: 'none', borderRadius: '8px', color: 'white', fontWeight: 700, fontSize: '1rem', opacity: authLoading ? 0.7 : 1 }}>
-              {authLoading ? 'Authenticating...' : authMode === 'login' ? 'Sign In' : 'Create Account'}
+              {authLoading ? 'Processing...' : authMode === 'login' ? 'Sign In' : authMode === 'register' ? 'Create Account' : 'Verify Email Address'}
             </button>
           </form>
         </div>

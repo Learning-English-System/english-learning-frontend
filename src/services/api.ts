@@ -195,6 +195,19 @@ class ApiService {
     return res.json();
   }
 
+  async verifyEmail(email: string, token: string): Promise<any> {
+    const res = await fetch(`${GATEWAY_URL}/api/auth/email/verify`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, token })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ message: 'Verification failed' }));
+      throw new Error(err.message || err.detail || 'Verification failed');
+    }
+    return res.json();
+  }
+
   async logout(): Promise<void> {
     const token = localStorage.getItem('access_token');
     if (token) {
