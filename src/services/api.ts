@@ -63,6 +63,20 @@ export interface VocabularyItem {
   updatedAt: string;
   examples: VocabularyExample[];
   reviewState?: ReviewState;
+  phonetic?: string;
+  exampleSentence?: string;
+  repetitions?: number;
+}
+
+export interface CreateVocabularyRequest {
+  word: string;
+  translation: string;
+  partOfSpeech?: string;
+  definition?: string;
+  cefrLevel?: string;
+  categoryId?: string;
+  exampleSentence?: string;
+  examples?: Array<{ sentence: string; translation: string }>;
 }
 
 export interface LearningProgress {
@@ -73,6 +87,9 @@ export interface LearningProgress {
   dueReviews: number;
   rollingAccuracy: number;
   updatedAt: string;
+  totalReviewed?: number;
+  streakDays?: number;
+  retentionRate?: number;
 }
 
 export interface Category {
@@ -84,12 +101,16 @@ export interface Category {
 
 export interface VocabularyAnalysis {
   normalizedWord: string;
+  word?: string;
   translation: string;
+  vietnameseTranslation?: string;
   partOfSpeech: string;
   definition: string;
   cefrLevel: string;
   suggestedCategories: string[];
   examples: Array<{ sentence: string; translation: string }>;
+  exampleSentence?: string;
+  synonyms?: string[];
   collocations: string[];
   phonetic?: string;
 }
@@ -97,8 +118,11 @@ export interface VocabularyAnalysis {
 export interface PronunciationAssessment {
   transcript: string;
   matchScore: number;
+  overallScore?: number;
   feedback: string;
   isAcceptable: boolean;
+  accuracyScore?: number;
+  fluencyScore?: number;
 }
 
 export interface TestQuestion {
@@ -123,6 +147,7 @@ export interface TestSession {
   startedAt: string;
   completedAt?: string;
   questions: TestQuestion[];
+  targetLevel?: string;
 }
 
 export interface UserSession {
@@ -135,6 +160,7 @@ export interface UserSession {
   lastActiveAt: string;
   riskLevel: string;
   isCurrentSession: boolean;
+  userAgentSummary?: string;
 }
 
 class ApiService {
@@ -277,15 +303,7 @@ class ApiService {
     return res.json();
   }
 
-  async createVocabulary(data: {
-    word: string;
-    translation: string;
-    partOfSpeech?: string;
-    definition?: string;
-    cefrLevel?: string;
-    categoryId?: string;
-    examples?: Array<{ sentence: string; translation: string }>;
-  }): Promise<VocabularyItem> {
+  async createVocabulary(data: CreateVocabularyRequest): Promise<VocabularyItem> {
     const res = await fetch(`${GATEWAY_URL}/api/vocabulary`, {
       method: 'POST',
       headers: this.getHeaders(),
