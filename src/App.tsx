@@ -133,31 +133,31 @@ const AppContent: React.FC = () => {
     return (
       <div className="min-h-screen bg-[var(--color-canvas)] text-[var(--color-ink)] flex flex-col items-center justify-center relative overflow-hidden">
         <CinematicAtmosphere activeTab="review" isDark={isDark} />
-        <div className="w-8 h-8 border-2 border-white/20 border-t-[var(--neural-cyan)] rounded-full animate-spin z-10 shadow-[0_0_15px_rgba(0,240,255,0.4)]" />
-        <span className="mt-4 text-xs font-mono tracking-widest text-[var(--neural-cyan)] z-10">
-          INITIALIZING NEURAL SYSTEM...
+        <div className="w-9 h-9 border-3 border-indigo-200 dark:border-indigo-900 border-t-indigo-600 rounded-full animate-spin z-10" />
+        <span className="mt-4 text-xs font-semibold tracking-wider text-slate-500 z-10">
+          Đang khởi tạo hệ thống...
         </span>
       </div>
     );
   }
 
-  // If not authenticated, render High-Tech Neural Landing Page
+  // If not authenticated, render Clean Minimalist Landing Page
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[var(--color-canvas)] text-[var(--color-ink)] flex flex-col justify-center items-center p-4 relative overflow-hidden transition-colors duration-200">
         <CinematicAtmosphere activeTab="ai" isDark={isDark} />
 
         {/* Landing Hero Headline */}
-        <div className="text-center max-w-xl mx-auto mb-8 z-10 pt-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[var(--neural-cyan)]/10 border border-[var(--neural-cyan)]/25 text-xs font-mono text-[var(--neural-cyan)] mb-4 select-none shadow-[0_0_15px_rgba(0,240,255,0.15)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--neural-cyan)] animate-pulse" />
-            <span>SYNAPSE COGNITION ENGINE // v2.6</span>
+        <div className="text-center max-w-xl mx-auto mb-8 z-10 pt-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/40 text-xs font-bold text-indigo-700 dark:text-indigo-400 mb-4 select-none shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
+            <span>Nền tảng học tiếng Anh thông minh</span>
           </div>
-          <h1 className="font-tech text-4xl sm:text-5xl font-bold tracking-tight text-white mb-3 leading-tight">
-            Cognitive Memory. <br className="hidden sm:inline" />Synaptic English Mastery.
+          <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-3.5 leading-tight">
+            Ghi nhớ từ vựng tự nhiên. <br className="hidden sm:inline" />Nhớ sâu và bền vững.
           </h1>
-          <p className="text-xs sm:text-sm text-stone-400 leading-relaxed max-w-md mx-auto font-sans">
-            SuperMemo-2 spaced recall algorithms, real-time acoustic phonetics, and standardized CEFR diagnostics engineered with minimal neural restraint.
+          <p className="text-sm sm:text-base font-medium text-slate-600 dark:text-slate-300 leading-relaxed max-w-lg mx-auto">
+            Kết hợp phương pháp lặp lại ngắt quãng SuperMemo-2, trí tuệ nhân tạo phản xạ phát âm và bài thi chuẩn CEFR.
           </p>
         </div>
 
@@ -166,8 +166,8 @@ const AppContent: React.FC = () => {
           <AuthModal />
         </div>
 
-        <p className="mt-8 text-[11px] font-mono text-stone-500 text-center z-10 tracking-wider">
-          SYNAPSE // NEURAL MEMORY SYSTEM • HIGH-PERFORMANCE COGNITIVE ARCHITECTURE
+        <p className="mt-8 text-xs font-medium text-slate-400 dark:text-slate-500 text-center z-10">
+          Synapse English • Tối giản • Hiệu quả • Chuẩn khoa học trí nhớ
         </p>
       </div>
     );
@@ -180,7 +180,7 @@ const AppContent: React.FC = () => {
 
       {/* Subtle sync loading line */}
       {dataLoading && (
-        <div className="fixed top-0 left-0 right-0 h-[2px] bg-[var(--neural-cyan)] shadow-[0_0_10px_rgba(0,240,255,0.8)] z-[60]" />
+        <div className="fixed top-0 left-0 right-0 h-[2px] bg-indigo-600 z-[60]" />
       )}
 
       {/* Top Glass Navigation Bar */}

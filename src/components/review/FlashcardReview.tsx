@@ -47,19 +47,19 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
     sounds.playClick(900);
 
     try {
-        await onSubmitRating(currentItem.id, quality);
+      await onSubmitRating(currentItem.id, quality);
       setIsFlipped(false);
 
       if (currentIndex + 1 < dueReviews.length) {
         setCurrentIndex((prev) => prev + 1);
       } else {
-        // Finished all cards! Trigger synaptic audio and confetti
+        // Finished all cards!
         sounds.playSuccess();
         confetti({
           particleCount: 80,
           spread: 60,
           origin: { y: 0.6 },
-          colors: ['#00f0ff', '#10b981', '#ffffff', '#38bdf8'],
+          colors: ['#4f46e5', '#10b981', '#f59e0b', '#38bdf8'],
         });
         await onRefreshQueue();
         setCurrentIndex(0);
@@ -99,23 +99,23 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <Card className="p-10 text-center border border-white/[0.08] bg-[#0c0d10]">
-            <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-[var(--neural-cyan)]/10 text-[var(--neural-cyan)] flex items-center justify-center border border-[var(--neural-cyan)]/20 shadow-[0_0_15px_rgba(0,240,255,0.15)]">
-              <Trophy className="w-6 h-6" />
+          <Card className="p-10 text-center border border-slate-200 dark:border-white/10 shadow-lg bg-white dark:bg-[#111726]">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center border border-emerald-200 dark:border-emerald-800/50 shadow-sm">
+              <Trophy className="w-8 h-8" />
             </div>
-            <h2 className="text-xl font-bold tracking-tight text-white mb-2 font-tech">
-              SYNAPSE CYCLE COMPLETE
+            <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">
+              Hoàn Thành Phiên Ôn Tập!
             </h2>
-            <p className="text-xs text-stone-400 max-w-md mx-auto mb-6 leading-relaxed font-sans">
-              All scheduled spaced-repetition neural nodes for this cycle have been consolidated. The SuperMemo-2 algorithm will reschedule based on memory half-life decay.
+            <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-6 leading-relaxed">
+              Bạn đã ôn hết tất cả từ vựng hôm nay. Thuật toán Spaced Repetition sẽ tự động tính toán thời gian tối ưu cho phiên tiếp theo.
             </p>
             <Button
-              variant="secondary"
-              icon={<RefreshCcw className="w-3.5 h-3.5" />}
+              variant="primary"
+              icon={<RefreshCcw className="w-4 h-4" />}
               onClick={onRefreshQueue}
-              className="rounded-lg px-5 text-xs font-mono"
+              className="rounded-xl px-6 py-3 text-sm font-semibold shadow-sm"
             >
-              Scan For Due Nodes
+              Kiểm tra từ vựng mới
             </Button>
           </Card>
         </motion.div>
@@ -128,23 +128,23 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
   return (
     <div className="max-w-2xl mx-auto py-6 px-4">
       
-      {/* Session Header */}
-      <div className="flex items-center justify-between mb-4 pb-3 border-b border-black/[0.06] dark:border-white/[0.08]">
+      {/* Session Header - Chữ số to rõ ràng */}
+      <div className="flex items-center justify-between mb-3 pb-2">
         <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-[var(--neural-cyan)]" />
-          <span className="text-xs font-mono text-stone-400 uppercase tracking-wider">
-            Node {currentIndex + 1} // {dueReviews.length}
+          <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          <span className="text-base font-bold text-slate-800 dark:text-slate-100">
+            Thẻ {currentIndex + 1} <span className="text-slate-400 font-normal">/ {dueReviews.length}</span>
           </span>
         </div>
-        <span className="text-xs font-mono font-medium text-[var(--neural-cyan)]">
-          {progressPercent}% Synced
+        <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
+          {progressPercent}% Hoàn thành
         </span>
       </div>
 
       {/* Progress track */}
-      <div className="w-full h-1 rounded-full bg-black/[0.06] dark:bg-white/[0.08] mb-6 overflow-hidden">
+      <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 mb-6 overflow-hidden">
         <motion.div
-          className="h-full bg-[var(--neural-cyan)] rounded-full shadow-[0_0_8px_rgba(0,240,255,0.5)]"
+          className="h-full bg-indigo-600 dark:bg-indigo-500 rounded-full"
           initial={{ width: 0 }}
           animate={{ width: `${progressPercent}%` }}
           transition={{ duration: 0.2 }}
@@ -174,10 +174,10 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
                 variant="primary"
                 size="lg"
                 onClick={toggleFlip}
-                className="w-full max-w-sm rounded-lg py-2.5 text-sm"
+                className="w-full max-w-sm rounded-xl py-3.5 text-base font-semibold shadow-md"
               >
-                <span>Reveal Synapse Node</span>
-                <kbd className="neural-kbd ml-2 text-inherit opacity-80">Space</kbd>
+                <span>Xem đáp án</span>
+                <kbd className="neural-kbd ml-3 px-2 py-0.5 text-xs">Space</kbd>
               </Button>
             </motion.div>
           ) : (
@@ -186,66 +186,66 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              className="space-y-3"
+              className="space-y-4"
             >
-              {/* Tactile Mechanical Keypads */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              {/* 4 Rating Buttons - Chữ số to rõ ràng, bố cục cân đối */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 
                 {/* Again / 0 */}
                 <button
                   disabled={submitting}
                   onClick={() => handleRate(0)}
-                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] hover:border-red-500/40 text-left transition-all active:translate-y-[1px] select-none group"
+                  className="p-3.5 rounded-xl bg-white dark:bg-[#111726] hover:bg-rose-50/50 dark:hover:bg-rose-950/20 border-2 border-slate-200 dark:border-white/10 hover:border-rose-400 dark:hover:border-rose-500 text-left transition-all active:scale-[0.98] shadow-sm select-none group"
                 >
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-semibold text-red-500 dark:text-red-400 font-tech">Again</span>
-                    <kbd className="neural-kbd">1</kbd>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-base font-bold text-rose-600 dark:text-rose-400">Học lại</span>
+                    <span className="w-6 h-6 rounded-md bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 flex items-center justify-center font-bold text-xs">1</span>
                   </div>
-                  <div className="text-[11px] text-stone-500 font-mono">&lt; 1 min</div>
+                  <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">&lt; 1 phút</div>
                 </button>
 
                 {/* Hard / 2 */}
                 <button
                   disabled={submitting}
                   onClick={() => handleRate(2)}
-                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] hover:border-amber-500/40 text-left transition-all active:translate-y-[1px] select-none group"
+                  className="p-3.5 rounded-xl bg-white dark:bg-[#111726] hover:bg-amber-50/50 dark:hover:bg-amber-950/20 border-2 border-slate-200 dark:border-white/10 hover:border-amber-400 dark:hover:border-amber-500 text-left transition-all active:scale-[0.98] shadow-sm select-none group"
                 >
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-semibold text-amber-500 dark:text-amber-400 font-tech">Hard</span>
-                    <kbd className="neural-kbd">2</kbd>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-base font-bold text-amber-600 dark:text-amber-400">Khó</span>
+                    <span className="w-6 h-6 rounded-md bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold text-xs">2</span>
                   </div>
-                  <div className="text-[11px] text-stone-500 font-mono">1 day</div>
+                  <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">1 ngày</div>
                 </button>
 
                 {/* Good / 4 */}
                 <button
                   disabled={submitting}
                   onClick={() => handleRate(4)}
-                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] hover:border-cyan-500/40 text-left transition-all active:translate-y-[1px] select-none group"
+                  className="p-3.5 rounded-xl bg-white dark:bg-[#111726] hover:bg-indigo-50/50 dark:hover:bg-indigo-950/20 border-2 border-slate-200 dark:border-white/10 hover:border-indigo-400 dark:hover:border-indigo-500 text-left transition-all active:scale-[0.98] shadow-sm select-none group"
                 >
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-semibold text-cyan-500 dark:text-[var(--neural-cyan)] font-tech">Good</span>
-                    <kbd className="neural-kbd">3</kbd>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-base font-bold text-indigo-600 dark:text-indigo-400">Tốt</span>
+                    <span className="w-6 h-6 rounded-md bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 flex items-center justify-center font-bold text-xs">3</span>
                   </div>
-                  <div className="text-[11px] text-stone-500 font-mono">3 days</div>
+                  <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">3 ngày</div>
                 </button>
 
                 {/* Easy / 5 */}
                 <button
                   disabled={submitting}
                   onClick={() => handleRate(5)}
-                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] hover:border-emerald-500/40 text-left transition-all active:translate-y-[1px] select-none group"
+                  className="p-3.5 rounded-xl bg-white dark:bg-[#111726] hover:bg-emerald-50/50 dark:hover:bg-emerald-950/20 border-2 border-slate-200 dark:border-white/10 hover:border-emerald-400 dark:hover:border-emerald-500 text-left transition-all active:scale-[0.98] shadow-sm select-none group"
                 >
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-semibold text-emerald-500 dark:text-emerald-400 font-tech">Easy</span>
-                    <kbd className="neural-kbd">4</kbd>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-base font-bold text-emerald-600 dark:text-emerald-400">Dễ</span>
+                    <span className="w-6 h-6 rounded-md bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 flex items-center justify-center font-bold text-xs">4</span>
                   </div>
-                  <div className="text-[11px] text-stone-500 font-mono">7 days</div>
+                  <div className="text-xs font-semibold text-slate-500 dark:text-slate-400">7 ngày</div>
                 </button>
 
               </div>
-              <p className="text-center text-[11px] font-mono text-stone-500">
-                SuperMemo-2 algorithm automatically recalibrates ease factor
+              <p className="text-center text-xs font-medium text-slate-400 dark:text-slate-500">
+                Ghi nhận theo thuật toán ngắt quãng SuperMemo-2
               </p>
             </motion.div>
           )}

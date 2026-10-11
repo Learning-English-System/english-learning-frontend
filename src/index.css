@@ -2,33 +2,33 @@
 
 @layer base {
   :root {
-    --bg-canvas: #ffffff;
-    --bg-surface: #f8f9fa;
-    --bg-surface-elevated: #ffffff;
-    --border-hairline: rgba(0, 0, 0, 0.07);
-    --border-hover: rgba(0, 0, 0, 0.18);
-    --text-primary: #090a0c;
-    --text-secondary: #525866;
-    --text-muted: #868c98;
-    --neural-cyan: #0284c7;
-    --neural-emerald: #059669;
-    --neural-amber: #d97706;
-    --neural-coral: #dc2626;
-  }
-
-  .dark {
-    --bg-canvas: #07080a;
-    --bg-surface: #0e1013;
-    --bg-surface-elevated: #15181e;
-    --border-hairline: rgba(255, 255, 255, 0.07);
-    --border-hover: rgba(255, 255, 255, 0.2);
-    --text-primary: #f3f4f6;
-    --text-secondary: #9ca3af;
-    --text-muted: #4b5563;
-    --neural-cyan: #00f0ff;
+    --bg-canvas: #fafbfc;
+    --bg-surface: #ffffff;
+    --bg-surface-elevated: #f1f5f9;
+    --border-hairline: #e2e8f0;
+    --border-hover: #cbd5e1;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --neural-cyan: #4f46e5; /* Refined Indigo accent */
     --neural-emerald: #10b981;
     --neural-amber: #f59e0b;
     --neural-coral: #ef4444;
+  }
+
+  .dark {
+    --bg-canvas: #090d16;
+    --bg-surface: #111726;
+    --bg-surface-elevated: #182238;
+    --border-hairline: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.16);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --neural-cyan: #6366f1; /* Vibrant smooth Indigo */
+    --neural-emerald: #10b981;
+    --neural-amber: #f59e0b;
+    --neural-coral: #f43f5e;
   }
 
   * {
@@ -38,8 +38,8 @@
   body {
     background-color: var(--bg-canvas);
     color: var(--text-primary);
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    letter-spacing: -0.015em;
+    font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.011em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
@@ -47,67 +47,67 @@
   }
 }
 
-/* Modern Typography Classes */
-.font-tech {
-  font-family: 'Space Grotesk', -apple-system, sans-serif;
-}
-
-.font-sans {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+/* Highly Legible Modern Typography */
+.font-tech,
+.font-sans,
+.font-heading {
+  font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
 .font-mono {
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 }
 
-/* Modern Minimalist Neural Surfaces */
+/* Modern Minimalist Refined Surfaces */
 .neural-surface {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-hairline);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
 .dark .neural-surface {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px -10px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), 0 2px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
-/* Navigation Hairline Bar */
+/* Navigation Bar */
 .neural-nav {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-hairline);
 }
 
 .dark .neural-nav {
-  background-color: rgba(7, 8, 10, 0.85);
+  background-color: rgba(9, 13, 22, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-hairline);
 }
 
-/* Minimalist Mechanical Keycap */
+/* Clean, Readable Keycap */
 .neural-kbd {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
   line-height: 1;
-  padding: 2.5px 5.5px;
-  border-radius: 4px;
+  padding: 3px 6px;
+  border-radius: 6px;
   background-color: var(--bg-surface-elevated);
-  color: var(--text-secondary);
+  color: var(--text-primary);
   border: 1px solid var(--border-hairline);
-  border-bottom-width: 2px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.06);
 }
 
-/* Synapse Glow Indicator */
+/* Indicator dot */
 .synapse-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 9999px;
-  background-color: var(--neural-cyan);
-  box-shadow: 0 0 8px var(--neural-cyan);
+  background-color: #10b981;
 }
 
 /* 3D Flashcard Flip utilities */
@@ -130,8 +130,8 @@
 
 /* Minimalist Scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {

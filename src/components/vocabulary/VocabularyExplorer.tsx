@@ -44,6 +44,7 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'en-US';
+      utterance.rate = 0.9;
       window.speechSynthesis.speak(utterance);
     }
   };
@@ -88,27 +89,23 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
   return (
     <div className="max-w-6xl mx-auto py-8 px-4 sm:px-6">
       
-      {/* Header bar */}
+      {/* Header bar - To, rõ ràng, tinh tế */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[var(--neural-cyan)]/10 border border-[var(--neural-cyan)]/20 text-[var(--neural-cyan)] text-[11px] font-mono mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--neural-cyan)] animate-pulse" />
-            SYNAPSE VOCABULARY MATRIX
-          </div>
-          <h1 className="text-3xl font-bold tracking-tight text-white font-tech">
-            Linguistic Repository
+          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            Thư Viện Từ Vựng
           </h1>
-          <p className="text-xs font-mono text-stone-400 mt-1">
-            {vocabularyList.length} active lexical nodes encoded in synaptic memory
+          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mt-1">
+            <span className="text-indigo-600 dark:text-indigo-400 font-bold text-base">{vocabularyList.length}</span> từ vựng đã được lưu trữ trong hệ thống
           </p>
         </div>
         <Button
           variant="primary"
           icon={<Plus className="w-4 h-4" />}
           onClick={() => setShowAddModal(true)}
-          className="rounded-lg px-4 self-start sm:self-auto text-xs"
+          className="rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm self-start sm:self-auto"
         >
-          Add Node
+          Thêm từ mới
         </Button>
       </div>
 
@@ -116,11 +113,11 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
       <div className="space-y-4 mb-8">
         <div className="max-w-md">
           <Input
-            placeholder="Search lexical node, translation, context..."
+            placeholder="Tìm kiếm từ, nghĩa hoặc câu ví dụ..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            icon={<Search className="w-4 h-4" />}
-            className="rounded-lg bg-black/40 border-white/[0.08]"
+            icon={<Search className="w-4 h-4 text-slate-400" />}
+            className="rounded-xl bg-white dark:bg-[#111726] border-slate-200 dark:border-white/10 text-sm shadow-sm"
           />
         </div>
 
@@ -128,22 +125,22 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
           <button
             onClick={() => setSelectedCategory('all')}
-            className={`px-3 py-1.5 rounded-md text-xs font-mono tracking-tight transition-all shrink-0 border ${
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold tracking-tight transition-all shrink-0 ${
               selectedCategory === 'all'
-                ? 'bg-[var(--neural-cyan)]/15 text-[var(--neural-cyan)] border-[var(--neural-cyan)]/40 shadow-[0_0_10px_rgba(0,240,255,0.2)]'
-                : 'bg-white/[0.02] border-white/[0.06] text-stone-400 hover:text-white hover:border-white/[0.12]'
+                ? 'bg-indigo-600 text-white shadow-sm'
+                : 'bg-white dark:bg-[#111726] border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20'
             }`}
           >
-            All Clusters ({vocabularyList.length})
+            Tất cả ({vocabularyList.length})
           </button>
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3 py-1.5 rounded-md text-xs font-mono tracking-tight transition-all shrink-0 border ${
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold tracking-tight transition-all shrink-0 ${
                 selectedCategory === cat.id
-                  ? 'bg-[var(--neural-cyan)]/15 text-[var(--neural-cyan)] border-[var(--neural-cyan)]/40 shadow-[0_0_10px_rgba(0,240,255,0.2)]'
-                  : 'bg-white/[0.02] border-white/[0.06] text-stone-400 hover:text-white hover:border-white/[0.12]'
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'bg-white dark:bg-[#111726] border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20'
               }`}
             >
               {cat.name}
@@ -154,17 +151,17 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
 
       {/* Grid of Vocabulary Cards */}
       {filteredItems.length === 0 ? (
-        <Card className="text-center py-16 border-white/[0.06]">
-          <BookOpen className="w-10 h-10 mx-auto text-stone-600 mb-3" />
-          <h3 className="text-base font-semibold text-white mb-1 font-tech">
-            No Lexical Nodes Found
+        <Card className="text-center py-16 border border-slate-200 dark:border-white/10 bg-white dark:bg-[#111726]">
+          <BookOpen className="w-12 h-12 mx-auto text-slate-400 mb-3" />
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
+            Chưa tìm thấy từ nào
           </h3>
-          <p className="text-xs font-mono text-stone-500">
-            {searchTerm ? 'Adjust filter queries to scan repository' : 'Click "Add Node" to encode new vocabulary'}
+          <p className="text-sm text-slate-500">
+            {searchTerm ? 'Hãy thử tìm kiếm với từ khóa khác' : 'Bấm "Thêm từ mới" để bắt đầu tích lũy từ vựng'}
           </p>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filteredItems.map((item) => (
             <motion.div
               key={item.id}
@@ -173,15 +170,16 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.2 }}
             >
-              <Card hoverEffect className="p-5 h-full flex flex-col justify-between border-white/[0.07] bg-[#0c0e12]/80">
+              <Card hoverEffect className="p-6 h-full flex flex-col justify-between border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#111726] shadow-sm hover:shadow-md rounded-2xl">
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div>
-                      <h4 className="font-tech text-xl font-bold tracking-tight text-white">
+                      {/* Word - To rõ ràng */}
+                      <h4 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
                         {item.word}
                       </h4>
                       {item.phonetic && (
-                        <span className="text-xs font-mono text-[var(--neural-cyan)]">
+                        <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">
                           /{item.phonetic.replace(/^\/|\/$/g, '')}/
                         </span>
                       )}
@@ -190,40 +188,42 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
                       variant="ghost"
                       size="icon"
                       onClick={() => playAudio(item.word)}
-                      className="w-7 h-7 text-stone-400 hover:text-[var(--neural-cyan)]"
+                      title="Phát âm"
+                      className="w-9 h-9 text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-full"
                     >
-                      <Volume2 className="w-3.5 h-3.5" />
+                      <Volume2 className="w-4 h-4" />
                     </Button>
                   </div>
 
-                  <p className="text-sm font-semibold text-white/90 mb-1.5 font-sans">
+                  {/* Nghĩa tiếng Việt */}
+                  <p className="text-base font-bold text-slate-800 dark:text-slate-100 mb-2">
                     {item.translation}
                   </p>
 
                   {item.definition && (
-                    <p className="text-xs text-stone-400 line-clamp-2 mb-2.5 leading-relaxed font-sans">
+                    <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-2 mb-3 leading-relaxed">
                       "{item.definition}"
                     </p>
                   )}
 
                   {item.exampleSentence && (
-                    <p className="text-xs text-stone-300 bg-white/[0.03] p-2.5 rounded-md line-clamp-2 font-mono border border-white/[0.06]">
+                    <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-white/[0.03] p-3 rounded-xl line-clamp-2 italic border border-slate-200/60 dark:border-white/5 font-medium">
                       {item.exampleSentence}
                     </p>
                   )}
                 </div>
 
-                <div className="flex items-center justify-between pt-3 mt-3 border-t border-white/[0.06] text-xs">
-                  <div className="flex items-center gap-1.5">
-                    <Badge variant="cyan" size="sm">
+                <div className="flex items-center justify-between pt-4 mt-4 border-t border-slate-100 dark:border-white/5 text-xs">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="stone" size="sm" className="font-semibold">
                       {item.partOfSpeech || 'Word'}
                     </Badge>
-                    <Badge variant="stone" size="sm" className="font-mono">
+                    <Badge variant="cyan" size="sm" className="font-bold">
                       {item.cefrLevel || 'B1'}
                     </Badge>
                   </div>
-                  <span className="text-[11px] font-mono text-stone-400">
-                    Rep: {item.repetitions ?? item.reviewState?.repetitionCount ?? 0}x
+                  <span className="text-xs font-semibold text-slate-400">
+                    Đã ôn: <span className="text-slate-700 dark:text-slate-200 font-bold">{item.repetitions ?? item.reviewState?.repetitionCount ?? 0}</span> lần
                   </span>
                 </div>
               </Card>
@@ -232,7 +232,7 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
         </div>
       )}
 
-      {/* Add Word Modal */}
+      {/* Add Word Modal - Tối giản, tinh tế */}
       <AnimatePresence>
         {showAddModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
@@ -242,21 +242,21 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               className="w-full max-w-lg"
             >
-              <Card className="p-6 sm:p-8 border border-white/[0.1] bg-[#0c0e12] shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+              <Card className="p-6 sm:p-8 border border-slate-200 dark:border-white/15 bg-white dark:bg-[#111726] shadow-2xl rounded-2xl">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h3 className="text-xl font-bold tracking-tight text-white font-tech">
-                      Encode New Lexical Node
+                    <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+                      Thêm Từ Vựng Mới
                     </h3>
-                    <p className="text-xs font-mono text-stone-400 mt-0.5">
-                      Direct insertion into synaptic memory pipeline
+                    <p className="text-xs text-slate-500 mt-0.5">
+                      Từ mới sẽ tự động được thêm vào lịch ôn tập ngắt quãng
                     </p>
                   </div>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setShowAddModal(false)}
-                    className="rounded-lg w-8 h-8 text-stone-400 hover:text-white"
+                    className="rounded-full w-8 h-8 text-slate-400 hover:text-slate-900 dark:hover:text-white"
                   >
                     <X className="w-4 h-4" />
                   </Button>
@@ -265,14 +265,14 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
                 <form onSubmit={handleCreateSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Input
-                      label="English Word *"
+                      label="Từ tiếng Anh *"
                       required
                       placeholder="e.g. resilient"
                       value={word}
                       onChange={(e) => setWord(e.target.value)}
                     />
                     <Input
-                      label="Vietnamese Meaning *"
+                      label="Nghĩa tiếng Việt *"
                       required
                       placeholder="e.g. kiên cường, bền bỉ"
                       value={translation}
@@ -282,43 +282,43 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono text-stone-400 mb-1.5 uppercase tracking-wider">
-                        Part of Speech
+                      <label className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">
+                        Từ loại
                       </label>
                       <select
                         value={partOfSpeech}
                         onChange={(e) => setPartOfSpeech(e.target.value)}
-                        className="w-full rounded-lg bg-black/40 border border-white/[0.08] px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-[var(--neural-cyan)]"
+                        className="w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-white/10 px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       >
-                        <option value="Noun" className="bg-[#0c0e12]">Noun (Danh từ)</option>
-                        <option value="Verb" className="bg-[#0c0e12]">Verb (Động từ)</option>
-                        <option value="Adjective" className="bg-[#0c0e12]">Adjective (Tính từ)</option>
-                        <option value="Adverb" className="bg-[#0c0e12]">Adverb (Phó từ)</option>
-                        <option value="Phrase" className="bg-[#0c0e12]">Phrase (Cụm từ)</option>
+                        <option value="Noun">Danh từ (Noun)</option>
+                        <option value="Verb">Động từ (Verb)</option>
+                        <option value="Adjective">Tính từ (Adjective)</option>
+                        <option value="Adverb">Phó từ (Adverb)</option>
+                        <option value="Phrase">Cụm từ (Phrase)</option>
                       </select>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono text-stone-400 mb-1.5 uppercase tracking-wider">
-                        CEFR Level
+                      <label className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">
+                        Cấp độ CEFR
                       </label>
                       <select
                         value={cefrLevel}
                         onChange={(e) => setCefrLevel(e.target.value)}
-                        className="w-full rounded-lg bg-black/40 border border-white/[0.08] px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-[var(--neural-cyan)]"
+                        className="w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-white/10 px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       >
-                        <option value="A1" className="bg-[#0c0e12]">A1 - Beginner</option>
-                        <option value="A2" className="bg-[#0c0e12]">A2 - Elementary</option>
-                        <option value="B1" className="bg-[#0c0e12]">B1 - Intermediate</option>
-                        <option value="B2" className="bg-[#0c0e12]">B2 - Upper Intermediate</option>
-                        <option value="C1" className="bg-[#0c0e12]">C1 - Advanced</option>
-                        <option value="C2" className="bg-[#0c0e12]">C2 - Mastery</option>
+                        <option value="A1">A1 - Sơ cấp</option>
+                        <option value="A2">A2 - Cơ bản</option>
+                        <option value="B1">B1 - Trung cấp</option>
+                        <option value="B2">B2 - Khá</option>
+                        <option value="C1">C1 - Nâng cao</option>
+                        <option value="C2">C2 - Thành thạo</option>
                       </select>
                     </div>
                   </div>
 
                   <Input
-                    label="English Definition"
+                    label="Định nghĩa (tiếng Anh)"
                     placeholder="Able to withstand or recover quickly from difficult conditions"
                     value={definition}
                     onChange={(e) => setDefinition(e.target.value)}
@@ -326,17 +326,17 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
 
                   {categories.length > 0 && (
                     <div>
-                      <label className="block text-xs font-mono text-stone-400 mb-1.5 uppercase tracking-wider">
-                        Cluster / Category
+                      <label className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">
+                        Danh mục / Chủ đề
                       </label>
                       <select
                         value={categoryId}
                         onChange={(e) => setCategoryId(e.target.value)}
-                        className="w-full rounded-lg bg-black/40 border border-white/[0.08] px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-[var(--neural-cyan)]"
+                        className="w-full rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-white/10 px-3.5 py-2.5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       >
-                        <option value="" className="bg-[#0c0e12]">None / General</option>
+                        <option value="">Chung (General)</option>
                         {categories.map((c) => (
-                          <option key={c.id} value={c.id} className="bg-[#0c0e12]">
+                          <option key={c.id} value={c.id}>
                             {c.name}
                           </option>
                         ))}
@@ -345,28 +345,28 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
                   )}
 
                   <Input
-                    label="Example Sentence"
+                    label="Câu ví dụ thực tế"
                     placeholder="The local economy has proved remarkably resilient."
                     value={exampleSentence}
                     onChange={(e) => setExampleSentence(e.target.value)}
                   />
 
-                  <div className="flex justify-end gap-3 pt-4 border-t border-white/[0.08]">
+                  <div className="flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-white/10">
                     <Button
                       type="button"
                       variant="secondary"
                       onClick={() => setShowAddModal(false)}
-                      className="rounded-lg px-4 text-xs font-mono"
+                      className="rounded-xl px-5 text-sm font-semibold"
                     >
-                      Cancel
+                      Hủy bỏ
                     </Button>
                     <Button
                       type="submit"
                       variant="primary"
                       loading={adding}
-                      className="rounded-lg px-5 text-xs font-mono"
+                      className="rounded-xl px-6 text-sm font-semibold"
                     >
-                      Encode Node
+                      Lưu từ vựng
                     </Button>
                   </div>
                 </form>

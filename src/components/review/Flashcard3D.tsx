@@ -20,7 +20,7 @@ export const Flashcard3D: React.FC<Flashcard3DProps> = ({
   return (
     <div
       onClick={onFlip}
-      className="perspective-1000 w-full h-[380px] sm:h-[410px] cursor-pointer select-none group"
+      className="perspective-1000 w-full min-h-[380px] sm:min-h-[420px] cursor-pointer select-none group"
     >
       <div
         className={`relative w-full h-full duration-500 transform-style-3d transition-transform ease-out ${
@@ -28,113 +28,121 @@ export const Flashcard3D: React.FC<Flashcard3DProps> = ({
         }`}
       >
         {/* FRONT SIDE */}
-        <div className="absolute inset-0 backface-hidden neural-surface rounded-xl p-8 sm:p-10 flex flex-col justify-between">
+        <div className="absolute inset-0 backface-hidden bg-white dark:bg-[#111726] border border-slate-200 dark:border-white/10 shadow-lg dark:shadow-2xl rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
+          
+          {/* Top badges & audio */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Badge variant="stone" size="sm" className="font-mono">
+              <Badge variant="stone" size="md" className="font-semibold text-xs px-2.5 py-1">
                 {item.partOfSpeech || 'Word'}
               </Badge>
-              <Badge variant="cyan" size="sm" className="font-mono">
+              <Badge variant="cyan" size="md" className="font-bold text-xs px-2.5 py-1">
                 {item.cefrLevel || 'B2'}
               </Badge>
             </div>
             <Button
-              variant="ghost"
+              variant="secondary"
               size="icon"
               onClick={(e) => {
                 e.stopPropagation();
                 onPlayAudio();
               }}
-              title="Listen pronunciation"
-              className="rounded-lg w-8 h-8 bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08]"
+              title="Phát âm"
+              className="rounded-full w-10 h-10 shadow-sm"
             >
-              <Volume2 className="w-4 h-4 text-stone-700 dark:text-stone-300" />
+              <Volume2 className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             </Button>
           </div>
 
+          {/* Main Word - TO, RÕ RÀNG, SẮC NÉT */}
           <div className="text-center my-auto py-6">
-            <h2 className="font-tech text-5xl sm:text-6xl font-bold tracking-tight text-[#090a0c] dark:text-[#f3f4f6] mb-3">
+            <h2 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
               {item.word}
             </h2>
-            {item.phonetic ? (
-              <p className="font-mono text-sm text-cyan-600 dark:text-cyan-400 tracking-wider">
-                /{item.phonetic}/
-              </p>
-            ) : (
-              <p className="font-mono text-[11px] text-stone-400 uppercase tracking-widest">
-                [SPACE TO FLIP]
+            {item.phonetic && (
+              <p className="text-lg sm:text-xl text-indigo-600 dark:text-indigo-400 font-semibold tracking-wide">
+                /{item.phonetic.replace(/^\/|\/$/g, '')}/
               </p>
             )}
           </div>
 
-          <div className="flex items-center justify-between text-xs font-mono text-stone-500 pt-3 border-t border-black/[0.06] dark:border-white/[0.07]">
-            <span className="flex items-center gap-1.5">
-              <span className="synapse-dot" />
-              <span>ACTIVE SYNAPSE</span>
+          {/* Bottom Flip Hint */}
+          <div className="flex items-center justify-between text-xs sm:text-sm font-medium text-slate-400 dark:text-slate-500 pt-4 border-t border-slate-100 dark:border-white/5">
+            <span className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Thẻ ôn tập</span>
             </span>
-            <span className="flex items-center gap-1">
-              <RotateCw className="w-3 h-3" />
-              <span>Press <kbd className="neural-kbd">Space</kbd></span>
+            <span className="flex items-center gap-1.5">
+              <RotateCw className="w-3.5 h-3.5" />
+              <span>Chạm hoặc nhấn <kbd className="neural-kbd text-xs">Space</kbd> để lật</span>
             </span>
           </div>
         </div>
 
         {/* BACK SIDE (ROTATED 180deg) */}
-        <div className="absolute inset-0 backface-hidden rotate-y-180 neural-surface rounded-xl p-8 sm:p-10 flex flex-col justify-between border-cyan-500/20 dark:border-cyan-400/20">
+        <div className="absolute inset-0 backface-hidden rotate-y-180 bg-white dark:bg-[#111726] border-2 border-indigo-500/20 dark:border-indigo-500/30 shadow-lg dark:shadow-2xl rounded-2xl p-8 sm:p-10 flex flex-col justify-between">
+          
+          {/* Top header */}
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400 tracking-widest uppercase">
-              // RECALL SYNTHESIS
+            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+              Giải nghĩa & Ngữ cảnh
             </span>
             <Button
-              variant="ghost"
+              variant="secondary"
               size="icon"
               onClick={(e) => {
                 e.stopPropagation();
                 onPlayAudio();
               }}
-              className="rounded-lg w-8 h-8"
+              title="Phát âm"
+              className="rounded-full w-10 h-10 shadow-sm"
             >
-              <Volume2 className="w-4 h-4" />
+              <Volume2 className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             </Button>
           </div>
 
+          {/* Meaning & Details - Chữ to rõ ràng */}
           <div className="my-auto py-4 space-y-4">
             <div>
-              <p className="text-[11px] text-stone-400 uppercase font-mono tracking-wider mb-1">
-                Vietnamese Translation
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
+                Nghĩa tiếng Việt
               </p>
-              <h3 className="font-tech text-2xl sm:text-3xl font-bold text-[#090a0c] dark:text-[#f3f4f6]">
+              <h3 className="text-2xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
                 {item.translation}
               </h3>
             </div>
 
             {item.definition && (
-              <div className="pt-2 border-t border-black/[0.06] dark:border-white/[0.07]">
-                <p className="text-[11px] text-stone-400 uppercase font-mono tracking-wider mb-1">
-                  Definition
+              <div className="pt-3 border-t border-slate-100 dark:border-white/5">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                  Định nghĩa
                 </p>
-                <p className="text-sm text-stone-700 dark:text-stone-300 leading-relaxed font-sans">
+                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                   {item.definition}
                 </p>
               </div>
             )}
 
             {(item.exampleSentence || (item.examples && item.examples.length > 0)) && (
-              <div className="pt-2 border-t border-black/[0.06] dark:border-white/[0.07] bg-black/[0.02] dark:bg-white/[0.03] p-3 rounded-lg border border-black/[0.04] dark:border-white/[0.06]">
-                <p className="text-[10px] text-stone-400 uppercase font-mono tracking-wider mb-1">
-                  Contextual Example
+              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                  Ví dụ câu
                 </p>
-                <p className="text-xs text-stone-700 dark:text-stone-300 leading-relaxed font-mono">
+                <p className="text-sm sm:text-base text-slate-800 dark:text-slate-200 font-medium italic">
                   "{item.exampleSentence || item.examples[0].sentence}"
                 </p>
               </div>
             )}
           </div>
 
-          <div className="flex items-center justify-between text-xs font-mono text-stone-500 pt-3 border-t border-black/[0.06] dark:border-white/[0.07]">
-            <span>STRENGTH: <span className="text-emerald-500 font-bold">OPTIMAL</span></span>
-            <span>Keys <kbd className="neural-kbd">1</kbd> <kbd className="neural-kbd">2</kbd> <kbd className="neural-kbd">3</kbd> <kbd className="neural-kbd">4</kbd></span>
+          {/* Bottom rating guidance */}
+          <div className="flex items-center justify-between text-xs sm:text-sm font-medium text-slate-400 dark:text-slate-500 pt-4 border-t border-slate-100 dark:border-white/5">
+            <span>Chọn mức độ ghi nhớ bên dưới</span>
+            <span className="flex items-center gap-1">
+              Phím tắt <kbd className="neural-kbd text-xs">1</kbd> <kbd className="neural-kbd text-xs">2</kbd> <kbd className="neural-kbd text-xs">3</kbd> <kbd className="neural-kbd text-xs">4</kbd>
+            </span>
           </div>
+
         </div>
       </div>
     </div>

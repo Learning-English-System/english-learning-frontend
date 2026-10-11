@@ -57,7 +57,6 @@ export const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
     }
   };
 
-  // Activity Rings Data (Apple Fitness style)
   const totalReviewed = progress?.totalReviewed || 0;
   const streak = progress?.streakDays || 5;
   const masteredCount = progress?.retentionRate ? Math.round(progress.retentionRate * 100) : 85;
@@ -67,114 +66,120 @@ export const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
       
       {/* Title */}
       <div>
-        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[var(--neural-cyan)]/10 border border-[var(--neural-cyan)]/20 text-[var(--neural-cyan)] text-[11px] font-mono mb-2">
-          <Award className="w-3.5 h-3.5" />
-          <span>SYNAPSE // OPERATIONAL METRICS</span>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 text-xs font-semibold mb-2">
+          <Award className="w-4 h-4" />
+          <span>Hồ Sơ & Thống Kê Học Tập</span>
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-white font-tech">
-          Cognitive Profile & Telemetry
+        <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+          Tiến Độ Của Bạn
         </h1>
-        <p className="text-xs font-mono text-stone-400 mt-1">
-          Monitor your neural retention curve, streak velocity, and active OpenIddict security sessions
+        <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mt-1">
+          Theo dõi chuỗi ngày học tập, tốc độ ghi nhớ từ vựng và thiết bị đăng nhập
         </p>
       </div>
 
-      {/* Top Section: Metric Rings & Identity Card */}
+      {/* Top Section: User Card & Big Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         {/* User Card */}
-        <Card className="p-6 md:col-span-1 flex flex-col justify-between border-white/[0.08] bg-[#0c0e12]">
+        <Card className="p-6 md:col-span-1 flex flex-col justify-between border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#111726] shadow-sm rounded-2xl">
           <div className="text-center py-4">
-            <div className="w-14 h-14 mx-auto rounded-xl bg-black border border-[var(--neural-cyan)]/30 text-[var(--neural-cyan)] flex items-center justify-center text-xl font-tech font-bold mb-3 shadow-[0_0_15px_rgba(0,240,255,0.15)] select-none">
-              {profile?.displayName?.charAt(0) || 'L'}
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-2xl font-bold mb-3 shadow-md select-none">
+              {profile?.displayName?.charAt(0) || 'U'}
             </div>
-            <h3 className="text-base font-bold text-white font-tech">
-              {profile?.displayName || 'Learner'}
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+              {profile?.displayName || 'Học viên'}
             </h3>
-            <p className="text-xs font-mono text-stone-400 mt-0.5">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
               {profile?.email}
             </p>
-            <div className="flex justify-center gap-1.5 mt-3">
-              <Badge variant="cyan" size="sm" className="font-mono">{profile?.targetCefrLevel || 'B2'} Candidate</Badge>
-              <Badge variant="stone" size="sm" className="font-mono">{streak}d Streak</Badge>
+            <div className="flex justify-center gap-2 mt-4">
+              <Badge variant="cyan" size="md" className="font-bold">Mục tiêu {profile?.targetCefrLevel || 'B2'}</Badge>
+              <Badge variant="amber" size="md" className="font-bold">🔥 {streak} ngày</Badge>
             </div>
           </div>
 
-          <div className="pt-3 border-t border-white/[0.08] text-xs font-mono text-stone-400 flex justify-between">
-            <span>Native: {profile?.nativeLanguage?.toUpperCase() || 'VI'}</span>
-            <span>Target: {profile?.targetLanguage?.toUpperCase() || 'EN'}</span>
+          <div className="pt-4 border-t border-slate-100 dark:border-white/5 text-xs font-semibold text-slate-400 flex justify-between">
+            <span>Ngôn ngữ gốc: {profile?.nativeLanguage?.toUpperCase() || 'VI'}</span>
+            <span>Mục tiêu: {profile?.targetLanguage?.toUpperCase() || 'EN'}</span>
           </div>
         </Card>
 
-        {/* Cognitive Metric Rings Card */}
-        <Card className="p-6 md:col-span-2 flex flex-col justify-between border-white/[0.08] bg-[#0c0e12]">
+        {/* Cognitive Metric Rings Card - Chữ số to rõ ràng */}
+        <Card className="p-6 md:col-span-2 flex flex-col justify-between border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#111726] shadow-sm rounded-2xl">
           <div>
-            <h3 className="text-sm font-mono uppercase tracking-wider text-stone-400 mb-1">
-              Synaptic Retention Telemetry
+            <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">
+              Chỉ Số Ghi Nhớ Ngắn & Dài Hạn
             </h3>
-            <p className="text-xs text-stone-500 mb-6 font-mono">
-              Algorithmic memory markers tracking neural consolidation and half-life decay
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6">
+              Đo lường độ bền vững của trí nhớ theo thuật toán ngắt quãng
             </p>
 
-            <div className="grid grid-cols-3 gap-3 text-center">
+            <div className="grid grid-cols-3 gap-4 text-center">
               
-              {/* Ring 1: Minutes */}
-              <div className="p-3.5 rounded-lg bg-white/[0.02] border border-white/[0.06] flex flex-col items-center">
-                <ProgressRing progress={75} size={64} strokeWidth={5} color="#00f0ff">
-                  <Clock className="w-4 h-4 text-[var(--neural-cyan)]" />
+              {/* Metric 1: Minutes */}
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5 flex flex-col items-center">
+                <ProgressRing progress={75} size={70} strokeWidth={6} color="#4f46e5">
+                  <Clock className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                 </ProgressRing>
-                <div className="mt-2.5">
-                  <div className="text-xs font-bold text-white font-mono">15 / {dailyGoal}m</div>
-                  <div className="text-[10px] text-stone-400 uppercase font-mono mt-0.5">Focus Duration</div>
+                <div className="mt-3">
+                  <div className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+                    15 <span className="text-xs font-semibold text-slate-400">/ {dailyGoal}p</span>
+                  </div>
+                  <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Thời gian học</div>
                 </div>
               </div>
 
-              {/* Ring 2: Reviews */}
-              <div className="p-3.5 rounded-lg bg-white/[0.02] border border-white/[0.06] flex flex-col items-center">
-                <ProgressRing progress={85} size={64} strokeWidth={5} color="#38bdf8">
-                  <Award className="w-4 h-4 text-sky-400" />
+              {/* Metric 2: Reviews */}
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5 flex flex-col items-center">
+                <ProgressRing progress={85} size={70} strokeWidth={6} color="#0284c7">
+                  <Award className="w-5 h-5 text-sky-600 dark:text-sky-400" />
                 </ProgressRing>
-                <div className="mt-2.5">
-                  <div className="text-xs font-bold text-white font-mono">{totalReviewed} nodes</div>
-                  <div className="text-[10px] text-stone-400 uppercase font-mono mt-0.5">SM-2 Reviews</div>
+                <div className="mt-3">
+                  <div className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+                    {totalReviewed} <span className="text-xs font-semibold text-slate-400">từ</span>
+                  </div>
+                  <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Đã ôn tập</div>
                 </div>
               </div>
 
-              {/* Ring 3: Retention */}
-              <div className="p-3.5 rounded-lg bg-white/[0.02] border border-white/[0.06] flex flex-col items-center">
-                <ProgressRing progress={masteredCount} size={64} strokeWidth={5} color="#10b981">
-                  <Flame className="w-4 h-4 text-emerald-400" />
+              {/* Metric 3: Retention */}
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5 flex flex-col items-center">
+                <ProgressRing progress={masteredCount} size={70} strokeWidth={6} color="#10b981">
+                  <Flame className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                 </ProgressRing>
-                <div className="mt-2.5">
-                  <div className="text-xs font-bold text-white font-mono">{masteredCount}%</div>
-                  <div className="text-[10px] text-stone-400 uppercase font-mono mt-0.5">Retention Rate</div>
+                <div className="mt-3">
+                  <div className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
+                    {masteredCount}%
+                  </div>
+                  <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Tỷ lệ nhớ lâu</div>
                 </div>
               </div>
 
             </div>
           </div>
 
-          <div className="pt-4 mt-4 border-t border-white/[0.08] text-xs font-mono text-stone-500 text-center">
-            SuperMemo-2 algorithm automatically calculates node intervals based on recall precision.
+          <div className="pt-4 mt-4 border-t border-slate-100 dark:border-white/5 text-xs text-slate-500 text-center font-medium">
+            Thuật toán SuperMemo-2 tự động phân tích độ khó để nhắc lại đúng thời điểm vàng trước khi quên.
           </div>
         </Card>
 
       </div>
 
       {/* Preferences Form */}
-      <Card className="p-6 border-white/[0.08] bg-[#0c0e12]">
-        <h3 className="text-base font-bold text-white font-tech mb-1">
-          Cognitive Workload & CEFR Targets
+      <Card className="p-6 sm:p-7 border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#111726] shadow-sm rounded-2xl">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
+          Thiết Lập Mục Tiêu & Cấp Độ
         </h3>
-        <p className="text-xs font-mono text-stone-400 mb-6">
-          Calibrate your daily review throughput and target difficulty threshold.
+        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6">
+          Tùy chỉnh thời gian học mỗi ngày và trình độ mục tiêu mong muốn đạt được.
         </p>
 
         <form onSubmit={handleSavePreferences} className="space-y-4 max-w-xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-stone-400 mb-2">
-                Daily Quota (Minutes)
+              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                Mục tiêu hàng ngày (Phút)
               </label>
               <input
                 type="number"
@@ -182,41 +187,41 @@ export const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
                 max={180}
                 value={dailyGoal}
                 onChange={(e) => setDailyGoal(Number(e.target.value))}
-                className="w-full rounded-lg bg-black/40 border border-white/[0.08] px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-[var(--neural-cyan)]"
+                className="w-full rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-white/10 px-4 py-2.5 text-base font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-mono uppercase tracking-wider text-stone-400 mb-2">
-                CEFR Target Level
+              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+                Trình độ CEFR mục tiêu
               </label>
               <select
                 value={targetCefr}
                 onChange={(e) => setTargetCefr(e.target.value)}
-                className="w-full rounded-lg bg-black/40 border border-white/[0.08] px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-[var(--neural-cyan)]"
+                className="w-full rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-white/10 px-4 py-2.5 text-base font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
-                <option value="A1" className="bg-[#0c0e12]">A1 - Beginner</option>
-                <option value="A2" className="bg-[#0c0e12]">A2 - Elementary</option>
-                <option value="B1" className="bg-[#0c0e12]">B1 - Intermediate</option>
-                <option value="B2" className="bg-[#0c0e12]">B2 - Upper Intermediate</option>
-                <option value="C1" className="bg-[#0c0e12]">C1 - Advanced</option>
-                <option value="C2" className="bg-[#0c0e12]">C2 - Mastery</option>
+                <option value="A1">A1 - Sơ cấp</option>
+                <option value="A2">A2 - Cơ bản</option>
+                <option value="B1">B1 - Trung cấp</option>
+                <option value="B2">B2 - Khá</option>
+                <option value="C1">C1 - Nâng cao</option>
+                <option value="C2">C2 - Thành thạo</option>
               </select>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 pt-2">
+          <div className="flex items-center gap-3 pt-3">
             <Button
               type="submit"
               variant="primary"
               loading={saving}
-              className="rounded-lg px-5 text-xs font-mono"
+              className="rounded-xl px-6 py-2.5 text-sm font-semibold shadow-sm"
             >
-              Update Calibration
+              Lưu thay đổi
             </Button>
             {savedSuccess && (
-              <span className="text-xs font-mono text-emerald-400 flex items-center gap-1">
-                <CheckCircle2 className="w-4 h-4" /> Parameters stored successfully.
+              <span className="text-sm font-bold text-emerald-600 flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4" /> Đã cập nhật thành công!
               </span>
             )}
           </div>
@@ -224,44 +229,44 @@ export const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
       </Card>
 
       {/* Security Sessions */}
-      <Card className="p-6 border-white/[0.08] bg-[#0c0e12]">
+      <Card className="p-6 sm:p-7 border border-slate-200/90 dark:border-white/10 bg-white dark:bg-[#111726] shadow-sm rounded-2xl">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-base font-bold text-white font-tech">
-              Active Devices & Security Sessions
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+              Thiết Bị & Phiên Đăng Nhập Hoạt Động
             </h3>
-            <p className="text-xs font-mono text-stone-400 mt-0.5">
-              Managed by OpenIddict Token Families with automatic rotation detection
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+              Bảo mật danh tính với cơ chế OpenIddict Token Family
             </p>
           </div>
-          <Shield className="w-5 h-5 text-emerald-400" />
+          <Shield className="w-5 h-5 text-emerald-600" />
         </div>
 
         {sessions.length === 0 ? (
-          <p className="text-xs font-mono text-stone-500 py-4">No secondary active device sessions detected.</p>
+          <p className="text-sm text-slate-400 py-3">Không có phiên đăng nhập phụ nào khác.</p>
         ) : (
           <div className="space-y-3 mt-4">
             {sessions.map((sess) => (
               <div
                 key={sess.id}
-                className="p-3.5 rounded-lg border border-white/[0.06] bg-white/[0.02] flex items-center justify-between"
+                className="p-4 rounded-xl border border-slate-200/70 dark:border-white/10 bg-slate-50/60 dark:bg-white/[0.02] flex items-center justify-between"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-black/40 border border-white/[0.08] flex items-center justify-center text-stone-400">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300">
                     {(sess.userAgentSummary || sess.userAgent)?.toLowerCase().includes('mobile') ? (
-                      <Smartphone className="w-4 h-4" />
+                      <Smartphone className="w-5 h-5" />
                     ) : (
-                      <Laptop className="w-4 h-4" />
+                      <Laptop className="w-5 h-5" />
                     )}
                   </div>
                   <div>
-                    <div className="text-xs font-mono font-semibold text-white">
-                      {(sess.userAgentSummary || sess.userAgent)?.split(' ')[0] || 'Web Browser'}
+                    <div className="text-sm font-bold text-slate-900 dark:text-white">
+                      {(sess.userAgentSummary || sess.userAgent)?.split(' ')[0] || 'Trình duyệt Web'}
                     </div>
-                    <div className="text-[11px] font-mono text-stone-400 flex items-center gap-2 mt-0.5">
+                    <div className="text-xs text-slate-400 flex items-center gap-2 mt-0.5 font-medium">
                       <span>IP: {sess.ipAddress || '127.0.0.1'}</span>
                       <span>•</span>
-                      <span>Risk: {sess.riskLevel || 'Low'}</span>
+                      <span>Mức an toàn: {sess.riskLevel || 'An toàn'}</span>
                     </div>
                   </div>
                 </div>
@@ -270,9 +275,9 @@ export const ProfileDashboard: React.FC<ProfileDashboardProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onRevokeSession(sess.id)}
-                  className="rounded-lg text-xs font-mono text-red-400 hover:bg-red-500/10 hover:text-red-300"
+                  className="rounded-lg text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40"
                 >
-                  <Trash2 className="w-3.5 h-3.5 mr-1" /> Revoke
+                  <Trash2 className="w-3.5 h-3.5 mr-1" /> Đăng xuất
                 </Button>
               </div>
             ))}
