@@ -91,20 +91,24 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
       {/* Header bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7]">
-            Vocabulary Library
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[var(--neural-cyan)]/10 border border-[var(--neural-cyan)]/20 text-[var(--neural-cyan)] text-[11px] font-mono mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--neural-cyan)] animate-pulse" />
+            SYNAPSE VOCABULARY MATRIX
+          </div>
+          <h1 className="text-3xl font-bold tracking-tight text-white font-tech">
+            Linguistic Repository
           </h1>
-          <p className="text-[14px] text-[#86868b] mt-1">
-            {vocabularyList.length} words cataloged in your active spaced-repetition memory
+          <p className="text-xs font-mono text-stone-400 mt-1">
+            {vocabularyList.length} active lexical nodes encoded in synaptic memory
           </p>
         </div>
         <Button
           variant="primary"
           icon={<Plus className="w-4 h-4" />}
           onClick={() => setShowAddModal(true)}
-          className="rounded-full px-5 self-start sm:self-auto"
+          className="rounded-lg px-4 self-start sm:self-auto text-xs"
         >
-          Add Word
+          Add Node
         </Button>
       </div>
 
@@ -112,11 +116,11 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
       <div className="space-y-4 mb-8">
         <div className="max-w-md">
           <Input
-            placeholder="Search word, meaning, context..."
+            placeholder="Search lexical node, translation, context..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             icon={<Search className="w-4 h-4" />}
-            className="rounded-full bg-white dark:bg-[#1c1c1e] shadow-apple-sm"
+            className="rounded-lg bg-black/40 border-white/[0.08]"
           />
         </div>
 
@@ -124,22 +128,22 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
         <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
           <button
             onClick={() => setSelectedCategory('all')}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-tight transition-all shrink-0 ${
+            className={`px-3 py-1.5 rounded-md text-xs font-mono tracking-tight transition-all shrink-0 border ${
               selectedCategory === 'all'
-                ? 'bg-[#1d1d1f] text-white dark:bg-[#f5f5f7] dark:text-[#1d1d1f]'
-                : 'bg-black/[0.04] dark:bg-white/[0.08] text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-[#f5f5f7]'
+                ? 'bg-[var(--neural-cyan)]/15 text-[var(--neural-cyan)] border-[var(--neural-cyan)]/40 shadow-[0_0_10px_rgba(0,240,255,0.2)]'
+                : 'bg-white/[0.02] border-white/[0.06] text-stone-400 hover:text-white hover:border-white/[0.12]'
             }`}
           >
-            All Categories ({vocabularyList.length})
+            All Clusters ({vocabularyList.length})
           </button>
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-tight transition-all shrink-0 ${
+              className={`px-3 py-1.5 rounded-md text-xs font-mono tracking-tight transition-all shrink-0 border ${
                 selectedCategory === cat.id
-                  ? 'bg-[#1d1d1f] text-white dark:bg-[#f5f5f7] dark:text-[#1d1d1f]'
-                  : 'bg-black/[0.04] dark:bg-white/[0.08] text-[#86868b] hover:text-[#1d1d1f] dark:hover:text-[#f5f5f7]'
+                  ? 'bg-[var(--neural-cyan)]/15 text-[var(--neural-cyan)] border-[var(--neural-cyan)]/40 shadow-[0_0_10px_rgba(0,240,255,0.2)]'
+                  : 'bg-white/[0.02] border-white/[0.06] text-stone-400 hover:text-white hover:border-white/[0.12]'
               }`}
             >
               {cat.name}
@@ -150,13 +154,13 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
 
       {/* Grid of Vocabulary Cards */}
       {filteredItems.length === 0 ? (
-        <Card className="text-center py-16">
-          <BookOpen className="w-12 h-12 mx-auto text-[#86868b]/40 mb-3" />
-          <h3 className="text-lg font-semibold text-[#1d1d1f] dark:text-[#f5f5f7] mb-1">
-            No words found
+        <Card className="text-center py-16 border-white/[0.06]">
+          <BookOpen className="w-10 h-10 mx-auto text-stone-600 mb-3" />
+          <h3 className="text-base font-semibold text-white mb-1 font-tech">
+            No Lexical Nodes Found
           </h3>
-          <p className="text-sm text-[#86868b]">
-            {searchTerm ? 'Try adjusting your search criteria' : 'Click "Add Word" to build your repository'}
+          <p className="text-xs font-mono text-stone-500">
+            {searchTerm ? 'Adjust filter queries to scan repository' : 'Click "Add Node" to encode new vocabulary'}
           </p>
         </Card>
       ) : (
@@ -169,16 +173,16 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.2 }}
             >
-              <Card hoverEffect className="p-5 h-full flex flex-col justify-between">
+              <Card hoverEffect className="p-5 h-full flex flex-col justify-between border-white/[0.07] bg-[#0c0e12]/80">
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div>
-                      <h4 className="font-serif text-2xl font-normal tracking-tight text-[#121316] dark:text-[#f4f3f0]">
+                      <h4 className="font-tech text-xl font-bold tracking-tight text-white">
                         {item.word}
                       </h4>
                       {item.phonetic && (
-                        <span className="text-xs font-mono text-stone-400">
-                          {item.phonetic}
+                        <span className="text-xs font-mono text-[var(--neural-cyan)]">
+                          /{item.phonetic.replace(/^\/|\/$/g, '')}/
                         </span>
                       )}
                     </div>
@@ -186,35 +190,35 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
                       variant="ghost"
                       size="icon"
                       onClick={() => playAudio(item.word)}
-                      className="w-7 h-7 text-stone-500 hover:text-stone-900 dark:hover:text-stone-100"
+                      className="w-7 h-7 text-stone-400 hover:text-[var(--neural-cyan)]"
                     >
                       <Volume2 className="w-3.5 h-3.5" />
                     </Button>
                   </div>
 
-                  <p className="text-sm font-semibold text-[#121316] dark:text-[#f4f3f0] mb-1.5">
+                  <p className="text-sm font-semibold text-white/90 mb-1.5 font-sans">
                     {item.translation}
                   </p>
 
                   {item.definition && (
-                    <p className="text-xs font-serif italic text-stone-600 dark:text-stone-400 line-clamp-2 mb-2.5 leading-relaxed">
+                    <p className="text-xs text-stone-400 line-clamp-2 mb-2.5 leading-relaxed font-sans">
                       "{item.definition}"
                     </p>
                   )}
 
                   {item.exampleSentence && (
-                    <p className="text-xs text-stone-600 dark:text-stone-400 bg-black/[0.02] dark:bg-white/[0.03] p-2 rounded-md line-clamp-2 font-sans border border-black/[0.04] dark:border-white/[0.06]">
+                    <p className="text-xs text-stone-300 bg-white/[0.03] p-2.5 rounded-md line-clamp-2 font-mono border border-white/[0.06]">
                       {item.exampleSentence}
                     </p>
                   )}
                 </div>
 
-                <div className="flex items-center justify-between pt-3 mt-3 border-t border-black/[0.06] dark:border-white/[0.08] text-xs">
+                <div className="flex items-center justify-between pt-3 mt-3 border-t border-white/[0.06] text-xs">
                   <div className="flex items-center gap-1.5">
-                    <Badge variant="stone" size="sm">
+                    <Badge variant="cyan" size="sm">
                       {item.partOfSpeech || 'Word'}
                     </Badge>
-                    <Badge variant="amber" size="sm" className="font-mono">
+                    <Badge variant="stone" size="sm" className="font-mono">
                       {item.cefrLevel || 'B1'}
                     </Badge>
                   </div>
@@ -238,16 +242,21 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               className="w-full max-w-lg"
             >
-              <Card className="p-6 sm:p-8 shadow-apple-lg border border-black/[0.1] dark:border-white/[0.15]">
+              <Card className="p-6 sm:p-8 border border-white/[0.1] bg-[#0c0e12] shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-xl font-bold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7]">
-                    Add New Word
-                  </h3>
+                  <div>
+                    <h3 className="text-xl font-bold tracking-tight text-white font-tech">
+                      Encode New Lexical Node
+                    </h3>
+                    <p className="text-xs font-mono text-stone-400 mt-0.5">
+                      Direct insertion into synaptic memory pipeline
+                    </p>
+                  </div>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setShowAddModal(false)}
-                    className="rounded-full w-8 h-8"
+                    className="rounded-lg w-8 h-8 text-stone-400 hover:text-white"
                   >
                     <X className="w-4 h-4" />
                   </Button>
@@ -273,37 +282,37 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[13px] font-medium text-[#86868b] mb-1.5">
+                      <label className="block text-xs font-mono text-stone-400 mb-1.5 uppercase tracking-wider">
                         Part of Speech
                       </label>
                       <select
                         value={partOfSpeech}
                         onChange={(e) => setPartOfSpeech(e.target.value)}
-                        className="w-full rounded-xl bg-black/[0.03] dark:bg-white/[0.06] border border-black/[0.08] dark:border-white/[0.12] px-3.5 py-2.5 text-sm text-[#1d1d1f] dark:text-[#f5f5f7] focus:outline-none focus:ring-2 focus:ring-[#0071e3]/30"
+                        className="w-full rounded-lg bg-black/40 border border-white/[0.08] px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-[var(--neural-cyan)]"
                       >
-                        <option value="Noun">Noun (Danh từ)</option>
-                        <option value="Verb">Verb (Động từ)</option>
-                        <option value="Adjective">Adjective (Tính từ)</option>
-                        <option value="Adverb">Adverb (Phó từ)</option>
-                        <option value="Phrase">Phrase (Cụm từ)</option>
+                        <option value="Noun" className="bg-[#0c0e12]">Noun (Danh từ)</option>
+                        <option value="Verb" className="bg-[#0c0e12]">Verb (Động từ)</option>
+                        <option value="Adjective" className="bg-[#0c0e12]">Adjective (Tính từ)</option>
+                        <option value="Adverb" className="bg-[#0c0e12]">Adverb (Phó từ)</option>
+                        <option value="Phrase" className="bg-[#0c0e12]">Phrase (Cụm từ)</option>
                       </select>
                     </div>
 
                     <div>
-                      <label className="block text-[13px] font-medium text-[#86868b] mb-1.5">
+                      <label className="block text-xs font-mono text-stone-400 mb-1.5 uppercase tracking-wider">
                         CEFR Level
                       </label>
                       <select
                         value={cefrLevel}
                         onChange={(e) => setCefrLevel(e.target.value)}
-                        className="w-full rounded-xl bg-black/[0.03] dark:bg-white/[0.06] border border-black/[0.08] dark:border-white/[0.12] px-3.5 py-2.5 text-sm text-[#1d1d1f] dark:text-[#f5f5f7] focus:outline-none focus:ring-2 focus:ring-[#0071e3]/30"
+                        className="w-full rounded-lg bg-black/40 border border-white/[0.08] px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-[var(--neural-cyan)]"
                       >
-                        <option value="A1">A1 - Beginner</option>
-                        <option value="A2">A2 - Elementary</option>
-                        <option value="B1">B1 - Intermediate</option>
-                        <option value="B2">B2 - Upper Intermediate</option>
-                        <option value="C1">C1 - Advanced</option>
-                        <option value="C2">C2 - Mastery</option>
+                        <option value="A1" className="bg-[#0c0e12]">A1 - Beginner</option>
+                        <option value="A2" className="bg-[#0c0e12]">A2 - Elementary</option>
+                        <option value="B1" className="bg-[#0c0e12]">B1 - Intermediate</option>
+                        <option value="B2" className="bg-[#0c0e12]">B2 - Upper Intermediate</option>
+                        <option value="C1" className="bg-[#0c0e12]">C1 - Advanced</option>
+                        <option value="C2" className="bg-[#0c0e12]">C2 - Mastery</option>
                       </select>
                     </div>
                   </div>
@@ -317,17 +326,17 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
 
                   {categories.length > 0 && (
                     <div>
-                      <label className="block text-[13px] font-medium text-[#86868b] mb-1.5">
-                        Category
+                      <label className="block text-xs font-mono text-stone-400 mb-1.5 uppercase tracking-wider">
+                        Cluster / Category
                       </label>
                       <select
                         value={categoryId}
                         onChange={(e) => setCategoryId(e.target.value)}
-                        className="w-full rounded-xl bg-black/[0.03] dark:bg-white/[0.06] border border-black/[0.08] dark:border-white/[0.12] px-3.5 py-2.5 text-sm text-[#1d1d1f] dark:text-[#f5f5f7] focus:outline-none focus:ring-2 focus:ring-[#0071e3]/30"
+                        className="w-full rounded-lg bg-black/40 border border-white/[0.08] px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-[var(--neural-cyan)]"
                       >
-                        <option value="">None / General</option>
+                        <option value="" className="bg-[#0c0e12]">None / General</option>
                         {categories.map((c) => (
-                          <option key={c.id} value={c.id}>
+                          <option key={c.id} value={c.id} className="bg-[#0c0e12]">
                             {c.name}
                           </option>
                         ))}
@@ -342,12 +351,12 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
                     onChange={(e) => setExampleSentence(e.target.value)}
                   />
 
-                  <div className="flex justify-end gap-3 pt-4 border-t border-black/[0.06] dark:border-white/[0.08]">
+                  <div className="flex justify-end gap-3 pt-4 border-t border-white/[0.08]">
                     <Button
                       type="button"
                       variant="secondary"
                       onClick={() => setShowAddModal(false)}
-                      className="rounded-full px-5"
+                      className="rounded-lg px-4 text-xs font-mono"
                     >
                       Cancel
                     </Button>
@@ -355,9 +364,9 @@ export const VocabularyExplorer: React.FC<VocabularyExplorerProps> = ({
                       type="submit"
                       variant="primary"
                       loading={adding}
-                      className="rounded-full px-6"
+                      className="rounded-lg px-5 text-xs font-mono"
                     >
-                      Save Word
+                      Encode Node
                     </Button>
                   </div>
                 </form>

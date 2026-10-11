@@ -47,19 +47,19 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
     sounds.playClick(900);
 
     try {
-      await onSubmitRating(currentItem.id, quality);
+        await onSubmitRating(currentItem.id, quality);
       setIsFlipped(false);
 
       if (currentIndex + 1 < dueReviews.length) {
         setCurrentIndex((prev) => prev + 1);
       } else {
-        // Finished all cards! Trigger luxury chime and confetti
+        // Finished all cards! Trigger synaptic audio and confetti
         sounds.playSuccess();
         confetti({
           particleCount: 80,
           spread: 60,
           origin: { y: 0.6 },
-          colors: ['#121316', '#b45309', '#15803d', '#1a365d'],
+          colors: ['#00f0ff', '#10b981', '#ffffff', '#38bdf8'],
         });
         await onRefreshQueue();
         setCurrentIndex(0);
@@ -99,15 +99,15 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <Card className="p-10 text-center">
-            <div className="w-12 h-12 mx-auto mb-4 rounded-lg bg-[#15803d]/10 text-[#15803d] flex items-center justify-center">
+          <Card className="p-10 text-center border border-white/[0.08] bg-[#0c0d10]">
+            <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-[var(--neural-cyan)]/10 text-[var(--neural-cyan)] flex items-center justify-center border border-[var(--neural-cyan)]/20 shadow-[0_0_15px_rgba(0,240,255,0.15)]">
               <Trophy className="w-6 h-6" />
             </div>
-            <h2 className="text-xl font-bold tracking-tight text-[#121316] dark:text-[#f4f3f0] mb-2 font-serif">
-              Queue Complete
+            <h2 className="text-xl font-bold tracking-tight text-white mb-2 font-tech">
+              SYNAPSE CYCLE COMPLETE
             </h2>
-            <p className="text-sm text-stone-500 max-w-md mx-auto mb-6 leading-relaxed">
-              All scheduled spaced repetition items for today have been reviewed. The interval algorithm will reschedule due cards automatically.
+            <p className="text-xs text-stone-400 max-w-md mx-auto mb-6 leading-relaxed font-sans">
+              All scheduled spaced-repetition neural nodes for this cycle have been consolidated. The SuperMemo-2 algorithm will reschedule based on memory half-life decay.
             </p>
             <Button
               variant="secondary"
@@ -115,7 +115,7 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
               onClick={onRefreshQueue}
               className="rounded-lg px-5 text-xs font-mono"
             >
-              Check For Due Items
+              Scan For Due Nodes
             </Button>
           </Card>
         </motion.div>
@@ -131,20 +131,20 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
       {/* Session Header */}
       <div className="flex items-center justify-between mb-4 pb-3 border-b border-black/[0.06] dark:border-white/[0.08]">
         <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-stone-500" />
-          <span className="text-xs font-mono text-stone-500 uppercase tracking-wider">
-            Card {currentIndex + 1} of {dueReviews.length}
+          <Layers className="w-4 h-4 text-[var(--neural-cyan)]" />
+          <span className="text-xs font-mono text-stone-400 uppercase tracking-wider">
+            Node {currentIndex + 1} // {dueReviews.length}
           </span>
         </div>
-        <span className="text-xs font-mono font-medium text-stone-600 dark:text-stone-400">
-          {progressPercent}% Complete
+        <span className="text-xs font-mono font-medium text-[var(--neural-cyan)]">
+          {progressPercent}% Synced
         </span>
       </div>
 
       {/* Progress track */}
       <div className="w-full h-1 rounded-full bg-black/[0.06] dark:bg-white/[0.08] mb-6 overflow-hidden">
         <motion.div
-          className="h-full bg-[#121316] dark:bg-[#f4f3f0] rounded-full"
+          className="h-full bg-[var(--neural-cyan)] rounded-full shadow-[0_0_8px_rgba(0,240,255,0.5)]"
           initial={{ width: 0 }}
           animate={{ width: `${progressPercent}%` }}
           transition={{ duration: 0.2 }}
@@ -176,8 +176,8 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
                 onClick={toggleFlip}
                 className="w-full max-w-sm rounded-lg py-2.5 text-sm"
               >
-                <span>Reveal Answer</span>
-                <kbd className="craft-kbd ml-2 text-inherit opacity-80">Space</kbd>
+                <span>Reveal Synapse Node</span>
+                <kbd className="neural-kbd ml-2 text-inherit opacity-80">Space</kbd>
               </Button>
             </motion.div>
           ) : (
@@ -195,11 +195,11 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
                 <button
                   disabled={submitting}
                   onClick={() => handleRate(0)}
-                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] text-left transition-all active:translate-y-[1px] select-none group"
+                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] hover:border-red-500/40 text-left transition-all active:translate-y-[1px] select-none group"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-semibold text-[#b91c1c] dark:text-[#f87171]">Again</span>
-                    <kbd className="craft-kbd">1</kbd>
+                    <span className="text-xs font-semibold text-red-500 dark:text-red-400 font-tech">Again</span>
+                    <kbd className="neural-kbd">1</kbd>
                   </div>
                   <div className="text-[11px] text-stone-500 font-mono">&lt; 1 min</div>
                 </button>
@@ -208,11 +208,11 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
                 <button
                   disabled={submitting}
                   onClick={() => handleRate(2)}
-                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] text-left transition-all active:translate-y-[1px] select-none group"
+                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] hover:border-amber-500/40 text-left transition-all active:translate-y-[1px] select-none group"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-semibold text-[#b45309] dark:text-[#f59e0b]">Hard</span>
-                    <kbd className="craft-kbd">2</kbd>
+                    <span className="text-xs font-semibold text-amber-500 dark:text-amber-400 font-tech">Hard</span>
+                    <kbd className="neural-kbd">2</kbd>
                   </div>
                   <div className="text-[11px] text-stone-500 font-mono">1 day</div>
                 </button>
@@ -221,11 +221,11 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
                 <button
                   disabled={submitting}
                   onClick={() => handleRate(4)}
-                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] text-left transition-all active:translate-y-[1px] select-none group"
+                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] hover:border-cyan-500/40 text-left transition-all active:translate-y-[1px] select-none group"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-semibold text-[#1a365d] dark:text-[#38bdf8]">Good</span>
-                    <kbd className="craft-kbd">3</kbd>
+                    <span className="text-xs font-semibold text-cyan-500 dark:text-[var(--neural-cyan)] font-tech">Good</span>
+                    <kbd className="neural-kbd">3</kbd>
                   </div>
                   <div className="text-[11px] text-stone-500 font-mono">3 days</div>
                 </button>
@@ -234,17 +234,17 @@ export const FlashcardReview: React.FC<FlashcardReviewProps> = ({
                 <button
                   disabled={submitting}
                   onClick={() => handleRate(5)}
-                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] text-left transition-all active:translate-y-[1px] select-none group"
+                  className="p-3 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] border border-black/[0.08] dark:border-white/[0.1] hover:border-emerald-500/40 text-left transition-all active:translate-y-[1px] select-none group"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-semibold text-[#15803d] dark:text-[#4ade80]">Easy</span>
-                    <kbd className="craft-kbd">4</kbd>
+                    <span className="text-xs font-semibold text-emerald-500 dark:text-emerald-400 font-tech">Easy</span>
+                    <kbd className="neural-kbd">4</kbd>
                   </div>
                   <div className="text-[11px] text-stone-500 font-mono">7 days</div>
                 </button>
 
               </div>
-              <p className="text-center text-[11px] font-mono text-stone-400">
+              <p className="text-center text-[11px] font-mono text-stone-500">
                 SuperMemo-2 algorithm automatically recalibrates ease factor
               </p>
             </motion.div>

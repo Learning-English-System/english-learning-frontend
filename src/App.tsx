@@ -133,15 +133,15 @@ const AppContent: React.FC = () => {
     return (
       <div className="min-h-screen bg-[var(--color-canvas)] text-[var(--color-ink)] flex flex-col items-center justify-center relative overflow-hidden">
         <CinematicAtmosphere activeTab="review" isDark={isDark} />
-        <div className="w-8 h-8 border-2 border-stone-300 dark:border-stone-700 border-t-[#121316] dark:border-t-[#f4f3f0] rounded-full animate-spin z-10" />
-        <span className="mt-4 text-xs font-mono tracking-wider text-stone-400 z-10">
-          INITIALIZING LEXICON...
+        <div className="w-8 h-8 border-2 border-white/20 border-t-[var(--neural-cyan)] rounded-full animate-spin z-10 shadow-[0_0_15px_rgba(0,240,255,0.4)]" />
+        <span className="mt-4 text-xs font-mono tracking-widest text-[var(--neural-cyan)] z-10">
+          INITIALIZING NEURAL SYSTEM...
         </span>
       </div>
     );
   }
 
-  // If not authenticated, render Bespoke Lexicon Atelier Landing Page
+  // If not authenticated, render High-Tech Neural Landing Page
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-[var(--color-canvas)] text-[var(--color-ink)] flex flex-col justify-center items-center p-4 relative overflow-hidden transition-colors duration-200">
@@ -149,15 +149,15 @@ const AppContent: React.FC = () => {
 
         {/* Landing Hero Headline */}
         <div className="text-center max-w-xl mx-auto mb-8 z-10 pt-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-black/[0.04] dark:bg-white/[0.06] border border-black/[0.08] dark:border-white/[0.1] text-xs font-mono text-stone-600 dark:text-stone-300 mb-4 select-none">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#b45309]" />
-            <span>OXFORD COGNITIVE SYSTEM</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[var(--neural-cyan)]/10 border border-[var(--neural-cyan)]/25 text-xs font-mono text-[var(--neural-cyan)] mb-4 select-none shadow-[0_0_15px_rgba(0,240,255,0.15)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--neural-cyan)] animate-pulse" />
+            <span>SYNAPSE COGNITION ENGINE // v2.6</span>
           </div>
-          <h1 className="font-serif text-4xl sm:text-5xl font-normal tracking-tight text-[#121316] dark:text-[#f4f3f0] mb-3 leading-tight">
-            Master the English Lexicon.
+          <h1 className="font-tech text-4xl sm:text-5xl font-bold tracking-tight text-white mb-3 leading-tight">
+            Cognitive Memory. <br className="hidden sm:inline" />Synaptic English Mastery.
           </h1>
-          <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed max-w-md mx-auto font-sans">
-            SuperMemo-2 spaced recall, native acoustic phonetics, and standardized CEFR assessments designed with typographic craft.
+          <p className="text-xs sm:text-sm text-stone-400 leading-relaxed max-w-md mx-auto font-sans">
+            SuperMemo-2 spaced recall algorithms, real-time acoustic phonetics, and standardized CEFR diagnostics engineered with minimal neural restraint.
           </p>
         </div>
 
@@ -166,8 +166,8 @@ const AppContent: React.FC = () => {
           <AuthModal />
         </div>
 
-        <p className="mt-8 text-[11px] font-mono text-stone-400 text-center z-10">
-          LEXICON ATELIER • CRAFTED WITH EDITORIAL RESTRAINT
+        <p className="mt-8 text-[11px] font-mono text-stone-500 text-center z-10 tracking-wider">
+          SYNAPSE // NEURAL MEMORY SYSTEM • HIGH-PERFORMANCE COGNITIVE ARCHITECTURE
         </p>
       </div>
     );
@@ -180,7 +180,7 @@ const AppContent: React.FC = () => {
 
       {/* Subtle sync loading line */}
       {dataLoading && (
-        <div className="fixed top-0 left-0 right-0 h-[2px] bg-[#b45309] z-[60]" />
+        <div className="fixed top-0 left-0 right-0 h-[2px] bg-[var(--neural-cyan)] shadow-[0_0_10px_rgba(0,240,255,0.8)] z-[60]" />
       )}
 
       {/* Top Glass Navigation Bar */}

@@ -77,15 +77,15 @@ export const TestAssessment: React.FC<TestAssessmentProps> = ({
       
       {/* Header */}
       <div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0071e3]/10 text-[#0071e3] text-xs font-semibold mb-3">
+        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[var(--neural-cyan)]/10 border border-[var(--neural-cyan)]/20 text-[var(--neural-cyan)] text-[11px] font-mono mb-2">
           <Award className="w-3.5 h-3.5" />
-          <span>Standardized CEFR Diagnostics</span>
+          <span>SYNAPSE // CEFR EVALUATION CORE</span>
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7]">
-          Language Proficiency Assessments
+        <h1 className="text-3xl font-bold tracking-tight text-white font-tech">
+          Cognitive Proficiency Diagnostics
         </h1>
-        <p className="text-[14px] text-[#86868b] mt-1">
-          Adaptive multi-level assessments measuring grammar, vocabulary depth, and contextual fluency
+        <p className="text-xs font-mono text-stone-400 mt-1">
+          Standardized CEFR benchmarks measuring syntactic grammar, lexical depth, and cognitive fluency
         </p>
       </div>
 
@@ -95,24 +95,24 @@ export const TestAssessment: React.FC<TestAssessmentProps> = ({
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
         >
-          <Card className="p-8 sm:p-10 text-center shadow-apple-lg border border-[#34c759]/20">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#34c759]/10 text-[#34c759] flex items-center justify-center">
-              <Award className="w-8 h-8" />
+          <Card className="p-8 sm:p-10 text-center border border-emerald-500/30 bg-[#0c0e12]">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+              <Award className="w-7 h-7" />
             </div>
-            <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-[#f5f5f7] mb-1">
-              Assessment Completed!
+            <h2 className="text-xl font-bold text-white mb-1 font-tech">
+              DIAGNOSTIC CYCLE COMPLETE
             </h2>
-            <p className="text-sm text-[#86868b] mb-6">
-              Your responses have been graded according to the CEFR standard.
+            <p className="text-xs font-mono text-stone-400 mb-6">
+              Your responses have been validated against the CEFR linguistic framework.
             </p>
 
             <div className="max-w-xs mx-auto py-4 mb-6">
-              <div className="text-5xl font-black text-[#0071e3] tracking-tight mb-2">
+              <div className="text-5xl font-black text-[var(--neural-cyan)] tracking-tight mb-2 font-tech">
                 {result.score !== undefined ? `${Math.round(result.score)}%` : 'Completed'}
               </div>
               <div className="flex items-center justify-center gap-2">
-                <Badge variant="blue" size="md">
-                  Assessed Level: {result.cefrLevel || selectedLevel}
+                <Badge variant="cyan" size="md">
+                  Calibrated Level: {result.cefrLevel || selectedLevel}
                 </Badge>
               </div>
             </div>
@@ -123,9 +123,9 @@ export const TestAssessment: React.FC<TestAssessmentProps> = ({
                 setResult(null);
                 setActiveSession(null);
               }}
-              className="rounded-full px-8 py-2.5"
+              className="rounded-lg px-6 py-2 text-xs font-mono"
             >
-              Take Another Test
+              Initialize Next Diagnostic
             </Button>
           </Card>
         </motion.div>
@@ -139,19 +139,19 @@ export const TestAssessment: React.FC<TestAssessmentProps> = ({
           className="space-y-6"
         >
           {/* Status bar */}
-          <div className="flex items-center justify-between text-xs font-semibold text-[#86868b] px-1">
+          <div className="flex items-center justify-between text-xs font-mono text-stone-400 px-1">
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-1 rounded-full bg-[#0071e3]/10 text-[#0071e3]">
+              <span className="px-2.5 py-0.5 rounded-md bg-[var(--neural-cyan)]/10 text-[var(--neural-cyan)] border border-[var(--neural-cyan)]/20">
                 Level {activeSession.targetLevel || selectedLevel}
               </span>
-              <span>Question {currentQuestionIndex + 1} of {questions.length}</span>
+              <span>Sequence {currentQuestionIndex + 1} // {questions.length}</span>
             </div>
-            <span>{answeredCount}/{questions.length} answered</span>
+            <span>{answeredCount}/{questions.length} responses recorded</span>
           </div>
 
           {/* Question Card */}
-          <Card className="p-8">
-            <h3 className="font-serif text-2xl font-normal tracking-tight text-[#121316] dark:text-[#f4f3f0] mb-6 leading-relaxed">
+          <Card className="p-8 border-white/[0.08] bg-[#0c0e12]">
+            <h3 className="font-tech text-xl font-bold tracking-tight text-white mb-6 leading-relaxed">
               {activeQuestion.prompt}
             </h3>
 
@@ -165,29 +165,29 @@ export const TestAssessment: React.FC<TestAssessmentProps> = ({
                     onClick={() => handleSelectOption(activeQuestion.id, option)}
                     className={`w-full text-left p-3.5 rounded-lg border transition-all duration-150 flex items-center justify-between select-none ${
                       isSelected
-                        ? 'border-[#121316] dark:border-[#f4f3f0] bg-black/[0.05] dark:bg-white/[0.07] text-[#121316] dark:text-[#f4f3f0] font-medium shadow-xs'
-                        : 'border-black/[0.08] dark:border-white/[0.1] bg-black/[0.02] dark:bg-white/[0.03] text-stone-700 dark:text-stone-300 hover:border-black/20 dark:hover:border-white/20'
+                        ? 'border-[var(--neural-cyan)] bg-[var(--neural-cyan)]/10 text-white shadow-[0_0_12px_rgba(0,240,255,0.15)]'
+                        : 'border-white/[0.08] bg-white/[0.02] text-stone-300 hover:border-white/[0.2] hover:bg-white/[0.04]'
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <kbd className="craft-kbd">
+                      <kbd className="neural-kbd">
                         {String.fromCharCode(65 + idx)}
                       </kbd>
-                      <span className="text-sm font-sans">{option}</span>
+                      <span className="text-xs font-sans text-stone-200">{option}</span>
                     </div>
-                    {isSelected && <Check className="w-4 h-4 text-[#121316] dark:text-[#f4f3f0]" />}
+                    {isSelected && <Check className="w-4 h-4 text-[var(--neural-cyan)]" />}
                   </button>
                 );
               })}
             </div>
 
             {/* Navigator controls */}
-            <div className="flex items-center justify-between pt-6 border-t border-black/[0.05] dark:border-white/[0.08]">
+            <div className="flex items-center justify-between pt-6 border-t border-white/[0.08]">
               <Button
                 variant="secondary"
                 disabled={currentQuestionIndex === 0}
                 onClick={() => setCurrentQuestionIndex((prev) => prev - 1)}
-                className="rounded-full px-5"
+                className="rounded-lg px-4 text-xs font-mono"
               >
                 Previous
               </Button>
@@ -195,19 +195,19 @@ export const TestAssessment: React.FC<TestAssessmentProps> = ({
               {currentQuestionIndex + 1 < questions.length ? (
                 <Button
                   variant="primary"
-                  onClick={() => setCurrentQuestionIndex((prev) => prev + 1)}
-                  className="rounded-full px-6"
+                  onClick={() => setCurrentQuestionIndex((prev) => prev - 1)}
+                  className="rounded-lg px-5 text-xs font-mono"
                 >
-                  Next
+                  Next Node
                 </Button>
               ) : (
                 <Button
                   variant="primary"
                   loading={submitting}
                   onClick={handleSubmit}
-                  className="rounded-full px-7 bg-[#34c759] hover:bg-[#30d158]"
+                  className="rounded-lg px-6 text-xs font-mono bg-emerald-500 hover:bg-emerald-400 text-black font-semibold"
                 >
-                  Submit Assessment
+                  Submit Diagnostic
                 </Button>
               )}
             </div>
@@ -217,35 +217,35 @@ export const TestAssessment: React.FC<TestAssessmentProps> = ({
 
       {/* VIEW 3: Start New Test Configuration */}
       {!result && !activeSession && (
-        <Card className="p-8 sm:p-10 shadow-apple-lg">
+        <Card className="p-8 sm:p-10 border-white/[0.08] bg-[#0c0e12]">
           <div className="max-w-lg mx-auto text-center space-y-6">
-            <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-[#0071e3] to-[#5856d6] flex items-center justify-center text-white shadow-apple-md">
-              <FileText className="w-8 h-8" />
+            <div className="w-14 h-14 mx-auto rounded-xl bg-[var(--neural-cyan)]/10 border border-[var(--neural-cyan)]/25 flex items-center justify-center text-[var(--neural-cyan)] shadow-[0_0_20px_rgba(0,240,255,0.15)]">
+              <FileText className="w-7 h-7" />
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-[#1d1d1f] dark:text-[#f5f5f7] mb-2">
-                Configure Assessment
+              <h2 className="text-xl font-bold tracking-tight text-white mb-1 font-tech">
+                Diagnostic Parameters
               </h2>
-              <p className="text-sm text-[#86868b]">
-                Choose your target CEFR level and assessment length to begin.
+              <p className="text-xs font-mono text-stone-400">
+                Select target CEFR cognitive benchmark and sequence volume.
               </p>
             </div>
 
             <div className="space-y-4 text-left">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-2">
-                  Select CEFR Target
+                <label className="block text-xs font-mono uppercase tracking-wider text-stone-400 mb-2">
+                  CEFR Proficiency Target
                 </label>
                 <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                   {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map((lvl) => (
                     <button
                       key={lvl}
                       onClick={() => setSelectedLevel(lvl)}
-                      className={`py-2.5 rounded-xl font-bold text-sm border transition-all ${
+                      className={`py-2 rounded-lg font-mono font-bold text-xs border transition-all ${
                         selectedLevel === lvl
-                          ? 'border-[#0071e3] bg-[#0071e3] text-white shadow-apple-sm'
-                          : 'border-black/[0.08] dark:border-white/[0.1] bg-black/[0.02] dark:bg-white/[0.04] text-[#1d1d1f] dark:text-[#f5f5f7] hover:border-[#0071e3]/50'
+                          ? 'border-[var(--neural-cyan)] bg-[var(--neural-cyan)]/20 text-[var(--neural-cyan)] shadow-[0_0_10px_rgba(0,240,255,0.2)]'
+                          : 'border-white/[0.08] bg-white/[0.02] text-stone-400 hover:border-white/[0.15] hover:text-white'
                       }`}
                     >
                       {lvl}
@@ -255,21 +255,21 @@ export const TestAssessment: React.FC<TestAssessmentProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-2">
-                  Question Count
+                <label className="block text-xs font-mono uppercase tracking-wider text-stone-400 mb-2">
+                  Sequence Volume
                 </label>
                 <div className="grid grid-cols-3 gap-2">
                   {[5, 10, 20].map((cnt) => (
                     <button
                       key={cnt}
                       onClick={() => setSelectedCount(cnt)}
-                      className={`py-2 rounded-xl text-sm font-semibold border transition-all ${
+                      className={`py-2 rounded-lg text-xs font-mono border transition-all ${
                         selectedCount === cnt
-                          ? 'border-[#0071e3] bg-[#0071e3] text-white'
-                          : 'border-black/[0.08] dark:border-white/[0.1] text-[#1d1d1f] dark:text-[#f5f5f7]'
+                          ? 'border-[var(--neural-cyan)] bg-[var(--neural-cyan)]/20 text-[var(--neural-cyan)] shadow-[0_0_10px_rgba(0,240,255,0.2)]'
+                          : 'border-white/[0.08] bg-white/[0.02] text-stone-400 hover:border-white/[0.15] hover:text-white'
                       }`}
                     >
-                      {cnt} Questions
+                      {cnt} Nodes
                     </button>
                   ))}
                 </div>
@@ -282,9 +282,9 @@ export const TestAssessment: React.FC<TestAssessmentProps> = ({
                 size="lg"
                 loading={starting}
                 onClick={handleStart}
-                className="w-full rounded-full font-semibold py-3"
+                className="w-full rounded-lg font-mono text-xs py-3"
               >
-                Start CEFR {selectedLevel} Assessment
+                Execute CEFR {selectedLevel} Evaluation
               </Button>
             </div>
           </div>

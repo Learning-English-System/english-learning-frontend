@@ -19,26 +19,26 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   ...props
 }) => {
-  const baseStyles = "inline-flex items-center justify-center font-medium rounded-lg select-none transition-all duration-150 active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-400";
+  const baseStyles = "inline-flex items-center justify-center font-medium rounded-lg select-none transition-all duration-150 active:scale-[0.99] disabled:opacity-40 disabled:pointer-events-none focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500";
 
   const variants = {
-    // Solid deep ink with top highlight line (Linear / Stripe style)
-    primary: "bg-[#121316] text-[#faf9f5] hover:bg-[#202227] dark:bg-[#f4f3f0] dark:text-[#121316] dark:hover:bg-white shadow-[0_1px_2px_rgba(0,0,0,0.12),inset_0_1px_0_rgba(255,255,255,0.15)] active:translate-y-[0.5px]",
-    // Warm stone surface with subtle micro-border
-    secondary: "bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] text-inherit border border-black/[0.08] dark:border-white/[0.1] active:translate-y-[0.5px]",
-    // Warm Cognac / Amber accent
-    accent: "bg-[#b45309] hover:bg-[#92400e] text-white shadow-sm active:translate-y-[0.5px]",
-    outline: "border border-black/[0.14] dark:border-white/[0.18] hover:bg-black/[0.03] dark:hover:bg-white/[0.05] text-inherit",
-    ghost: "hover:bg-black/[0.04] dark:hover:bg-white/[0.06] text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100",
-    danger: "bg-[#b91c1c] hover:bg-[#991b1b] text-white shadow-sm active:translate-y-[0.5px]",
-    pill: "rounded-full bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] text-inherit border border-black/[0.08] dark:border-white/[0.1]",
+    // High-contrast modern monochrome
+    primary: "bg-[#090a0c] text-white hover:bg-[#1b1e24] dark:bg-[#f3f4f6] dark:text-[#090a0c] dark:hover:bg-white font-medium shadow-xs active:translate-y-[0.5px]",
+    // Clean carbon surface with hairline border
+    secondary: "bg-black/[0.03] dark:bg-white/[0.05] hover:bg-black/[0.06] dark:hover:bg-white/[0.08] text-inherit border border-black/[0.08] dark:border-white/[0.08] active:translate-y-[0.5px]",
+    // Electric Synapse Cyan Accent
+    accent: "bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 shadow-xs active:translate-y-[0.5px]",
+    outline: "border border-black/[0.12] dark:border-white/[0.14] hover:bg-black/[0.03] dark:hover:bg-white/[0.05] text-inherit",
+    ghost: "hover:bg-black/[0.04] dark:hover:bg-white/[0.06] text-stone-500 hover:text-stone-900 dark:hover:text-stone-100",
+    danger: "bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-400 border border-red-500/20 active:translate-y-[0.5px]",
+    pill: "rounded-full bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.1] text-inherit border border-black/[0.08] dark:border-white/[0.08]",
   };
 
   const sizes = {
     sm: "text-xs px-2.5 py-1.5 gap-1.5 font-medium",
     md: "text-sm px-3.5 py-2 gap-2",
-    lg: "text-[15px] px-5 py-2.5 gap-2.5",
-    icon: "p-2 w-8 h-8 rounded-md",
+    lg: "text-sm px-4.5 py-2.5 gap-2.5 font-medium",
+    icon: "p-2 w-8 h-8 rounded-lg",
   };
 
   return (

@@ -8,7 +8,8 @@ import {
   Flame, 
   LogOut, 
   Sun, 
-  Moon 
+  Moon,
+  Cpu
 } from 'lucide-react';
 import { SegmentControl, type SegmentOption } from '../ui/SegmentControl';
 import { Badge } from '../ui/Badge';
@@ -39,33 +40,33 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
   onToggleTheme,
 }) => {
   const navOptions: SegmentOption<NavTab>[] = [
-    { value: 'review', label: 'Review', icon: <Layers className="w-3.5 h-3.5" />, badge: dueReviewsCount > 0 ? dueReviewsCount : undefined },
+    { value: 'review', label: 'Recall', icon: <Layers className="w-3.5 h-3.5" />, badge: dueReviewsCount > 0 ? dueReviewsCount : undefined },
     { value: 'vocab', label: 'Lexicon', icon: <BookOpen className="w-3.5 h-3.5" /> },
-    { value: 'ai', label: 'Tutor & Voice', icon: <Mic2 className="w-3.5 h-3.5" /> },
+    { value: 'ai', label: 'Neural Voice', icon: <Mic2 className="w-3.5 h-3.5" /> },
     { value: 'test', label: 'Assessments', icon: <FileText className="w-3.5 h-3.5" /> },
-    { value: 'profile', label: 'Identity', icon: <User className="w-3.5 h-3.5" /> },
+    { value: 'profile', label: 'Metrics', icon: <User className="w-3.5 h-3.5" /> },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full craft-nav transition-colors duration-200">
+    <header className="sticky top-0 z-50 w-full neural-nav transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-15 flex items-center justify-between gap-4">
         
-        {/* Bespoke Heritage Brand Mark */}
+        {/* Modern Neural Identity */}
         <div className="flex items-center gap-2.5 shrink-0">
-          <div className="w-8 h-8 rounded-lg bg-[#121316] text-[#faf9f5] dark:bg-[#f4f3f0] dark:text-[#121316] flex items-center justify-center font-serif text-base font-bold shadow-xs select-none border border-black/10 dark:border-white/10">
-            Æ
+          <div className="w-8 h-8 rounded-lg bg-[#090a0c] text-white dark:bg-[#0e1013] flex items-center justify-center shadow-xs border border-black/10 dark:border-white/10">
+            <Cpu className="w-4 h-4 text-cyan-500 dark:text-cyan-400" />
           </div>
-          <div className="hidden sm:flex items-baseline gap-1.5">
-            <span className="font-semibold text-sm tracking-tight text-[#121316] dark:text-[#f4f3f0]">
-              Lexicon
+          <div className="hidden sm:flex items-baseline gap-1.5 font-tech">
+            <span className="font-bold text-sm tracking-tight text-[#090a0c] dark:text-[#f3f4f6]">
+              SYNAPSE
             </span>
-            <span className="text-[10px] font-mono tracking-wider px-1.5 py-0.5 rounded bg-black/[0.04] dark:bg-white/[0.08] text-stone-600 dark:text-stone-400 border border-black/[0.06] dark:border-white/[0.08]">
-              STUDIO
+            <span className="text-[10px] font-mono tracking-widest text-cyan-600 dark:text-cyan-400 font-semibold">
+              // NEURAL
             </span>
           </div>
         </div>
 
-        {/* Center: Tactile Segment Control */}
+        {/* Center: Minimalist Segment Control */}
         <div className="overflow-x-auto no-scrollbar py-1">
           <SegmentControl
             options={navOptions}
@@ -78,16 +79,16 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
         {/* Right side stats & controls */}
         <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
           
-          {/* Streak Amber Badge */}
-          <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#b45309]/10 text-[#b45309] dark:text-[#f59e0b] border border-[#b45309]/20 text-xs font-medium">
+          {/* Neural Streak Pill */}
+          <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 text-xs font-mono font-medium">
             <Flame className="w-3.5 h-3.5 fill-current" />
             <span>{streakDays}d streak</span>
           </div>
 
           {/* CEFR Level Badge */}
           {profile && (
-            <Badge variant="oxford" size="sm" className="hidden sm:inline-flex font-mono">
-              {profile.targetCefrLevel || 'B2'}
+            <Badge variant="cyan" size="sm" className="hidden sm:inline-flex font-mono">
+              CEFR {profile.targetCefrLevel || 'B2'}
             </Badge>
           )}
 
@@ -108,7 +109,7 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
             size="icon"
             onClick={onLogout}
             title="Sign Out"
-            className="w-8 h-8 hover:text-[#b91c1c]"
+            className="w-8 h-8 hover:text-red-500"
           >
             <LogOut className="w-3.5 h-3.5" />
           </Button>

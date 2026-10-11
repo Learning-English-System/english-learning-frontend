@@ -14,7 +14,7 @@ export const Card: React.FC<CardProps> = ({
   return (
     <div
       className={cn(
-        "craft-surface rounded-xl p-6 transition-all duration-200",
+        "neural-surface rounded-xl p-6 transition-all duration-200",
         hoverEffect && "hover:border-black/20 dark:hover:border-white/20 hover:shadow-md cursor-pointer",
         className
       )}
